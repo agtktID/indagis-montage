@@ -58,6 +58,9 @@ beforeAll(async () => {
     "list-prompts",
     "upsert-asset",
     "suggest-motion",
+    "import-assets",
+    "export-assets",
+    "list-assets",
   ];
   const loaded = await Promise.all(names.map((name) => loadAction(name)));
   run = Object.fromEntries(names.map((name, index) => [name, loaded[index]]));
@@ -413,5 +416,90 @@ describe("l'isolation entre utilisateurs", () => {
     )) as { video: { ownerEmail: string } };
     expect(result.video.ownerEmail).toBe(OTHER_USER);
     expect(result.video.ownerEmail).not.toBe(TEST_USER);
+  });
+});
+
+describe("l'aller-retour de la bibliothèque", () => {
+  it("la lecture à blanc n'écrit rien, et dit ce qu'elle créerait", async () => {
+    const avant = (await asTestUser(() => run["list-assets"]({}))) as { shown: number };
+
+    const rapport = (await asTestUser(() =>
+      run["import-assets"]({
+        content: "name,kind\nUne fiche,image",
+        dryRun: true,
+      }),
+    )) as { imported: number; read: number; dryRun: boolean };
+
+    expect(rapport.dryRun).toBe(true);
+    expect(rapport.imported).toBe(0);
+    expect(rapport.read).toBe(1);
+
+    const apres = (await asTestUser(() => run["list-assets"]({}))) as { shown: number };
+    expect(apres.shown).toBe(avant.shown);
+  });
+
+  it("importe les lignes valides et rend les autres, sans tout annuler", async () => {
+    const rapport = (await asTestUser(() =>
+      run["import-assets"]({
+        content: ["name,kind", "Bonne,image", ",image", "Mauvaise,hologramme"].join("\n"),
+      }),
+    )) as { imported: number; rejected: { line: number; reason: string }[] };
+
+    // Une ligne refusée n'annule pas l'import : la bonne passe.
+    expect(rapport.imported).toBe(1);
+    expect(rapport.rejected).toHaveLength(2);
+    expect(rapport.rejected[0].line).toBe(3);
+    expect(rapport.rejected[1].reason).toContain("hologramme");
+  });
+
+  it("fait l'aller-retour : ce qui sort rentre à l'identique", async () => {
+    await asTestUser(() =>
+      run["import-assets"]({
+        content: 'name,kind,status,url\nAller-retour,video,reference,https://exemple.test/a.mp4',
+      }),
+    );
+
+    const sortie = (await asTestUser(() => run["export-assets"]({ format: "csv" }))) as {
+      content: string;
+      rowCount: number;
+    };
+    expect(sortie.content).toContain("Aller-retour");
+
+    const relu = (await asTestUser(() =>
+      run["import-assets"]({ content: sortie.content, dryRun: true }),
+    )) as { read: number; rejected: unknown[] };
+
+    // Rien de refusé : un export que son propre import rejetterait serait inutilisable.
+    expect(relu.rejected).toEqual([]);
+    expect(relu.read).toBe(sortie.rowCount);
+  });
+
+  it("exporte en JSON relisible", async () => {
+    const sortie = (await asTestUser(() => run["export-assets"]({ format: "json" }))) as {
+      content: string;
+    };
+    expect(() => JSON.parse(sortie.content)).not.toThrow();
+  });
+
+  it("n'exporte que les ressources de son propre compte", async () => {
+    await asUser(OTHER_USER, () =>
+      run["import-assets"]({ content: "name,kind\nSecret d'un autre,image" }),
+    );
+
+    const miennes = (await asTestUser(() => run["export-assets"]({ format: "csv" }))) as {
+      content: string;
+    };
+    expect(miennes.content).not.toContain("Secret d'un autre");
+
+    const siennes = (await asUser(OTHER_USER, () =>
+      run["export-assets"]({ format: "csv" }),
+    )) as { content: string };
+    expect(siennes.content).toContain("Secret d'un autre");
+  });
+
+  it("refuse un type d'export inconnu plutôt que de tout exporter", async () => {
+    await expect(
+      asTestUser(() => run["export-assets"]({ format: "csv", kind: "hologramme" })),
+    ).rejects.toThrow(/hologramme/);
   });
 });

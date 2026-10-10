@@ -1,9 +1,9 @@
 import { useActionMutation, useActionQuery } from "@agent-native/core/client/hooks";
 import { useT } from "@agent-native/core/client/i18n";
-import { IconCopy } from "@tabler/icons-react";
 import { useState } from "react";
 
 import { Badge, EmptyState } from "@/components/studio/primitives";
+import { CopyButton, CopyTextButton } from "@/components/library/CopyButton";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -237,14 +237,15 @@ export function MotionView() {
                     {open === recipe.key ? t("motion.hideRecipe") : t("motion.showRecipe")}
                   </Button>
                   {recipe.prompt ? (
-                    <Button
-                      size="sm"
-                      variant="ghost"
-                      disabled={copyToPrompts.isPending}
-                      onClick={() => copyToPrompts.mutate({ fromMotion: recipe.key })}
-                    >
-                      <IconCopy size={13} /> {t("motion.copyToPrompts")}
-                    </Button>
+                    <>
+                      <CopyButton
+                        variant="ghost"
+                        label={t("motion.copyToPrompts")}
+                        doneLabel={t("motion.copiedToPrompts")}
+                        onCopy={() => copyToPrompts.mutateAsync({ fromMotion: recipe.key })}
+                      />
+                      <CopyTextButton text={recipe.prompt} />
+                    </>
                   ) : (
                     <Badge tone="muted">{t("motion.noPrompt")}</Badge>
                   )}

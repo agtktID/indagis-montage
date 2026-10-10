@@ -2,7 +2,6 @@ import { useActionMutation, useActionQuery } from "@agent-native/core/client/hoo
 import { useT } from "@agent-native/core/client/i18n";
 import { sendToAgentChat } from "@agent-native/core/client/agent-chat";
 import {
-  IconCopy,
   IconExternalLink,
   IconPhoto,
   IconSparkles,
@@ -14,6 +13,7 @@ import { useState } from "react";
 import { Badge, EmptyState, Textarea } from "@/components/studio/primitives";
 import { confirmDelete } from "@/lib/confirm-delete";
 import { Button } from "@/components/ui/button";
+import { CopyButton, CopyTextButton } from "@/components/library/CopyButton";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 import { fillPrompt, type PromptTemplate } from "@shared/prompt-library";
@@ -432,14 +432,12 @@ function CatalogCard({ prompt }: { prompt: CatalogPrompt }) {
           </p>
         ) : (
           <>
-            <Button
-              size="sm"
-              variant="outline"
-              disabled={copy.isPending}
-              onClick={() => copy.mutate({ fromCatalog: prompt.key })}
-            >
-              <IconCopy size={13} /> {t("prompts.copyToMine")}
-            </Button>
+            <CopyButton
+              label={t("prompts.copyToMine")}
+              doneLabel={t("prompts.copiedToMine")}
+              onCopy={() => copy.mutateAsync({ fromCatalog: prompt.key })}
+            />
+            <CopyTextButton text={filled} />
             <Button
               size="sm"
               variant="ghost"
@@ -526,13 +524,12 @@ function HeroCard({ prompt }: { prompt: PromptTemplate }) {
       ) : null}
 
       <div className="mt-auto flex flex-wrap items-center gap-2 pt-2">
-        <Button
-          size="sm"
-          variant="outline"
-          onClick={() => copy.mutate({ fromBuiltIn: prompt.key })}
-        >
-          <IconCopy size={13} /> {t("prompts.copyToMine")}
-        </Button>
+        <CopyButton
+          label={t("prompts.copyToMine")}
+          doneLabel={t("prompts.copiedToMine")}
+          onCopy={() => copy.mutateAsync({ fromBuiltIn: prompt.key })}
+        />
+        <CopyTextButton text={filled} />
         <Button
           size="sm"
           variant="ghost"

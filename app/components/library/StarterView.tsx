@@ -5,6 +5,7 @@ import { useState } from "react";
 
 import { Badge } from "@/components/studio/primitives";
 import { Button } from "@/components/ui/button";
+import { CopyButton } from "@/components/library/CopyButton";
 import { Input } from "@/components/ui/input";
 import { assetCategoryByKey, assetFormatByKey } from "@shared/asset-taxonomy";
 import { STARTER_TEMPLATES } from "@shared/starter-templates";
@@ -111,24 +112,21 @@ export function StarterView({ onInstalled }: { onInstalled: () => void }) {
                   </pre>
                 </details>
 
-                <Button
-                  size="sm"
-                  variant={already ? "ghost" : "outline"}
-                  className="mt-auto self-start"
-                  disabled={install.isPending}
-                  onClick={() =>
-                    install.mutate(
-                      {
+                <span className="mt-auto self-start">
+                  <CopyButton
+                    variant={already ? "ghost" : "outline"}
+                    icon={<IconDownload size={13} />}
+                    label={already ? t("starter.installAgain") : t("starter.install")}
+                    doneLabel={t("starter.installed")}
+                    onCopy={async () => {
+                      await install.mutateAsync({
                         starterKey: starter.key,
                         brandKitId: targetKit || null,
-                      },
-                      { onSuccess: onInstalled },
-                    )
-                  }
-                >
-                  <IconDownload size={13} />
-                  {already ? t("starter.installAgain") : t("starter.install")}
-                </Button>
+                      });
+                      onInstalled();
+                    }}
+                  />
+                </span>
               </article>
             </li>
           );

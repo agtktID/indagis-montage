@@ -1,9 +1,10 @@
 import { useActionMutation, useActionQuery } from "@agent-native/core/client/hooks";
 import { useT } from "@agent-native/core/client/i18n";
-import { IconPlus, IconSearch, IconTrash } from "@tabler/icons-react";
+import { IconPlus, IconSearch, IconTrash, IconUpload } from "@tabler/icons-react";
 import { useState } from "react";
 
 import { Badge, EmptyState, Textarea } from "@/components/studio/primitives";
+import { AssetTransfer } from "@/components/library/AssetTransfer";
 import { confirmDelete } from "@/lib/confirm-delete";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -53,8 +54,9 @@ export function AssetsView() {
   const [category, setCategory] = useState("");
   const [search, setSearch] = useState("");
   const [adding, setAdding] = useState(false);
+  const [transferring, setTransferring] = useState(false);
 
-  const { data } = useActionQuery("list-assets", {
+  const { data, refetch } = useActionQuery("list-assets", {
     status,
     ...(kind ? { kind } : {}),
     ...(category ? { category } : {}),
@@ -107,11 +109,26 @@ export function AssetsView() {
               className="w-64 pl-8"
             />
           </div>
+          <Button
+            size="sm"
+            variant="outline"
+            aria-expanded={transferring}
+            onClick={() => setTransferring((value) => !value)}
+          >
+            <IconUpload size={14} /> {t("transfer.open")}
+          </Button>
           <Button size="sm" onClick={() => setAdding(true)}>
             <IconPlus size={14} /> {t("studio.add")}
           </Button>
         </div>
       </div>
+
+      {transferring ? (
+        <AssetTransfer
+          onImported={() => void refetch()}
+          onClose={() => setTransferring(false)}
+        />
+      ) : null}
 
       <div className="flex flex-wrap gap-2">
         <FilterSelect
