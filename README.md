@@ -72,7 +72,7 @@ OpenAI, un modèle Ollama en local, ou les crédits gratuits de Builder.io.
 | | |
 | --- | --- |
 | **La carte narrative** | Les 12 étapes en 3 actes, avec votre courbe d'intensité face à celle de la méthode. L'écart entre les deux est le diagnostic. |
-| **Le carnet de marqueurs** | Vos passages repérés, avec leurs timecodes réels, réordonnables selon le récit et non la chronologie. |
+| **Le carnet de marqueurs** | Vos passages repérés, avec leurs timecodes réels. Vous les réordonnez selon le récit, pas selon la chronologie. |
 | **Le diagnostic** | Douze règles appliquées à votre carte : acte sous-doté, climax sans matière, fin déconnectée, courbe plate. |
 | **Les exports** | CSV, **EDL d'assemblage** pour Resolve et Premiere, chapitres YouTube. Rien ne part sur un serveur. |
 | **Les imports** | Collez un bloc de dérushage, ou donnez votre CSV/EDL. Une lecture à blanc montre ce qui serait créé **et refusé**, ligne par ligne, avant d'écrire. |
@@ -107,9 +107,9 @@ d'intensité en trait plein, celle de la méthode en pointillé.
 
 | | |
 | --- | --- |
-| **Le carnet de marqueurs** — chaque moment repéré, rattaché à une étape, triable en ordre narratif. | ![Le carnet de marqueurs](docs/captures/marqueurs.png) |
+| **Le carnet de marqueurs** — chaque moment repéré, rattaché à une étape. L'ordre narratif se règle à la main. | ![Le carnet de marqueurs](docs/captures/marqueurs.png) |
 | **Vos vidéos** — chaque carte montre où en est le récit, pas seulement la fabrication. | ![La liste des vidéos](docs/captures/liste-videos.png) |
-| **Le catalogue de prompts** — 550 prompts triables par catégorie, style et scène. | ![Le catalogue de prompts](docs/captures/catalogue-prompts.png) |
+| **Le catalogue de prompts** — 550 prompts à trier par catégorie, style et scène. | ![Le catalogue de prompts](docs/captures/catalogue-prompts.png) |
 | **La bibliothèque** — vos ressources rangées par type, catégorie et format. | ![La bibliothèque](docs/captures/bibliotheque.png) |
 
 Le thème suit celui de votre système, et les deux sont tenus : couleurs d'actes, courbe et
@@ -119,8 +119,8 @@ barres de couverture sont redéfinies pour chacun, pas seulement assombries.
 | --- | --- |
 | ![La carte narrative en thème sombre](docs/captures/carte-narrative-sombre.png) | ![Le chat de l'agent en thème sombre](docs/captures/chat-sombre.png) |
 
-> Ces captures sont **régénérables** : ce qu'elles montrent est du code, pas une base
-> locale. Voir [`tools/captures/README.md`](tools/captures/README.md).
+> Ces captures **se refont à l'identique** : ce qu'elles montrent est du code, pas une
+> base locale. Voir [`tools/captures/README.md`](tools/captures/README.md).
 
 ## Fabriquer des vidéos depuis vos cartes
 
@@ -158,8 +158,8 @@ actions/               45 actions métier — chacune est à la fois outil d'age
                        hook React, route HTTP et commande en ligne
 server/db/             12 tables PostgreSQL (PGlite en local)
 shared/                la méthode : 12 étapes, 3 actes, 5 questions, 5 symptômes
-shared/prompt-catalog/ 550 prompts, généré — voir tools/prompt-catalog/
-shared/motion-grammar/ 121 recettes de mouvement, généré — voir tools/motion-grammar/
+shared/prompt-catalog/ catalogue de 550 prompts, généré — voir tools/prompt-catalog/
+shared/motion-grammar/ 121 recettes de mouvement, générées — voir tools/motion-grammar/
 app/routes/            4 écrans : les vidéos, la fiche, le calendrier, la bibliothèque
 .agents/               ce que l'agent sait faire
 tools/                 les ponts vidéo et les générateurs de catalogues
@@ -167,7 +167,7 @@ tools/                 les ponts vidéo et les générateurs de catalogues
 
 La méthode vit dans `shared/hero-journey.ts`, pas en base : c'est du référentiel, pas de
 la donnée utilisateur. Même principe pour les deux catalogues — livrés dans le code, donc
-présents dès l'installation, et modifiables uniquement en les copiant.
+présents dès l'installation, et qu'on ne modifie qu'en les copiant.
 
 ### Vérifier
 
