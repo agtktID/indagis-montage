@@ -60,11 +60,21 @@ const SHOTS = [
   ...(demoVideo
     ? [
         ["carte-narrative", `/video/${demoVideo}`],
+        // Le diagnostic est la promesse de la première ligne du README : « vous dit ce
+        // qui manque ». Il mérite sa propre image, et il n'appelle aucun modèle — ce
+        // sont des règles appliquées à la carte.
+        ["diagnostic", `/video/${demoVideo}`, "Diagnostiquer", /remarque|Avertissement/],
         ["marqueurs", `/video/${demoVideo}?tab=markers`],
       ]
     : []),
   ["catalogue-prompts", "/library?section=prompts"],
-  ["bibliotheque", "/library?section=library"],
+  ["mouvements", "/library?section=motion"],
+  // Troisième élément : un onglet à cliquer avant de photographier. L'onglet des
+  // ressources vit dans un `useState`, pas dans l'URL — on ne peut donc pas y arriver
+  // par un lien. « Références » est celui qui porte les cinq types différents, donc le
+  // seul qui démontre vraiment la taxonomie ; « Brouillons », ouvert par défaut, n'en
+  // montre que trois.
+  ["bibliotheque", "/library?section=library", "Références"],
   ["liste-videos", "/videos"],
   // Le chat plein écran. L'identifiant est fixe et arbitraire : la route crée le fil
   // s'il n'existe pas, et une valeur figée rend la capture reproductible à l'identique.
@@ -154,6 +164,18 @@ const evaluate = (expression) =>
 
 await send("Page.navigate", { url: `${base}/` }, sessionId);
 await sleep(6000);
+
+// L'accueil se photographie ici, et nulle part ailleurs : une fois la session ouverte,
+// `/` redirige et l'écran devient inatteignable. C'est pourtant la première chose qu'un
+// visiteur voit de l'application.
+{
+  const {
+    result: { data },
+  } = await send("Page.captureScreenshot", { format: "png" }, sessionId);
+  writeFileSync(`${outDir}/accueil${SUFFIXE}.png`, Buffer.from(data, "base64"));
+  console.log(`  ${outDir}/accueil${SUFFIXE}.png`);
+}
+
 const login = await evaluate(`
   (() => {
     const button = [...document.querySelectorAll("button, a")]
@@ -189,11 +211,49 @@ async function waitForContent(timeoutMs = 20_000) {
   return false;
 }
 
-for (const [name, path] of SHOTS) {
+for (const [name, path, clicLabel, attendreApresClic] of SHOTS) {
   await send("Page.navigate", { url: base + path }, sessionId);
   await sleep(1500);
   if (!(await waitForContent())) {
     console.warn(`  attention : ${path} n'a jamais fini de charger — capture suspecte`);
+  }
+  if (clicLabel) {
+    // On le dit quand le clic rate, plutôt que de livrer en silence un écran qui n'est
+    // pas celui qu'on croit photographier.
+    const { result } = await evaluate(`
+      (() => {
+        const cible = [...document.querySelectorAll("button, a, [role=tab]")]
+          .find((element) => (element.textContent || "").includes(${JSON.stringify(clicLabel)}));
+        if (!cible) return false;
+        cible.click();
+        return true;
+      })()
+    `);
+    if (result?.result?.value !== true) {
+      console.warn(`  attention : onglet « ${clicLabel} » introuvable — capture sur l'onglet par défaut`);
+    }
+    if (attendreApresClic) {
+      // Un délai fixe a déjà fait rater cette capture une fois : le diagnostic met
+      // environ trois secondes, l'attente était de 900 ms, et la capture montrait la
+      // carte sans sa remarque — exactement l'écran qu'on ne voulait pas publier.
+      // On attend donc le résultat lui-même.
+      const deadline = Date.now() + 15_000;
+      let vu = false;
+      while (Date.now() < deadline) {
+        const sonde = await evaluate(
+          `${attendreApresClic}.test(document.body.innerText || "")`,
+        );
+        if (sonde.result?.result?.value === true) {
+          vu = true;
+          break;
+        }
+        await sleep(400);
+      }
+      if (!vu) {
+        console.warn(`  attention : « ${name} » n'a jamais affiché son résultat — capture suspecte`);
+      }
+    }
+    await sleep(900);
   }
   // Une respiration après le texte : les graphiques Recharts s'animent à l'entrée.
   await sleep(1200);

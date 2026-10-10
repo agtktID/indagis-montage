@@ -225,14 +225,26 @@ const steps = [
       await hold(2.8);
     },
   },
+  // La chute de la démonstration, et le choix mérite d'être expliqué.
+  //
+  // Elle montrait auparavant un brief envoyé à l'agent. Mauvaise idée : sans modèle
+  // connecté, le panneau s'ouvrait et restait vide, et les trois dernières secondes du
+  // GIF étaient une image fixe. Une démonstration qui s'arrête juste avant son effet
+  // dessert le produit plus qu'elle ne le sert.
+  //
+  // Le diagnostic, lui, répond toujours — il n'est que des règles appliquées à la carte,
+  // aucun appel réseau. Et il dit exactement ce que le README promet en première ligne :
+  // ce qui manque à l'histoire.
   {
-    label: "le brief de l'acte III",
+    label: "le diagnostic",
     run: async () => {
-      if (!(await clickByText(/III · Le retour|III · The return/))) {
-        throw new Error("le bouton de brief « III » est introuvable");
+      if (!(await clickByText(/Diagnostiquer|Diagnose/))) {
+        throw new Error("le bouton « Diagnostiquer » est introuvable");
       }
-      await sleep(2600);
-      await hold(3.4);
+      // On attend la remarque elle-même, pas un délai : photographier le bouton pendant
+      // qu'il réfléchit est précisément le ratage qu'on veut éviter.
+      await waitForText("/remarque|Avertissement/");
+      await hold(4.2);
     },
   },
 ];

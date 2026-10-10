@@ -22,16 +22,39 @@
     <source media="(prefers-color-scheme: dark)" srcset="https://shieldcn.dev/badge/donn%C3%A9es-100%25%20locales-green.svg?variant=secondary&logo=false&mode=dark" />
     <img alt="Données 100 % locales" src="https://shieldcn.dev/badge/donn%C3%A9es-100%25%20locales-green.svg?variant=secondary&logo=false&mode=light" />
   </picture>
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://shieldcn.dev/badge/statut-alpha-orange.svg?variant=secondary&logo=false&mode=dark" />
+    <img alt="Statut : alpha" src="https://shieldcn.dev/badge/statut-alpha-orange.svg?variant=secondary&logo=false&mode=light" />
+  </picture>
 </p>
+
+### L'atelier qui vous dit ce qui manque à votre histoire, avant que le montage ne le révèle trop tard.
 
 Vous avez quarante minutes de rushes et une timeline vide. Indagis Studio tient **la carte
 de votre récit** — les 12 étapes du voyage du héros, rattachées aux timecodes réels de vos
-fichiers — et vous dit **ce qui manque à votre histoire** avant que le montage ne vous le
-fasse payer.
+fichiers — et applique **douze règles** qui disent où le récit cède.
 
-![De la liste des vidéos au brief de l'acte III envoyé à l'agent](docs/captures/demo.gif)
+Tout tourne sur votre machine. Aucun compte, aucun abonnement, aucune donnée qui part
+ailleurs.
+
+![De la liste des vidéos au diagnostic : l'acte II est sous-doté, et l'outil le dit](docs/captures/demo.gif)
 
 ---
+
+## Le diagnostic, en une image
+
+C'est la fonction qui porte le produit. Douze règles lisent votre carte et renvoient des
+phrases comme celle-ci :
+
+> L'acte II ne porte que 33 s de matière repérée, contre 53 s pour l'acte I. La méthode en
+> fait la partie la plus longue : à ce rythme, le milieu sera le plus court, et c'est
+> exactement là que le spectateur décroche.
+
+![Le diagnostic signale un acte II sous-doté, et déplie les étapes concernées](docs/captures/diagnostic.png)
+
+Chaque remarque porte les numéros des étapes en cause : on clique, le panneau s'ouvre.
+Aucun modèle de langage n'intervient — ce sont des règles appliquées à vos notes et à vos
+timecodes, donc la réponse est immédiate et toujours la même.
 
 ## Le problème
 
@@ -64,60 +87,90 @@ pnpm dev
 L'application s'ouvre sur `http://localhost:8080`. Choisissez **« Continuer comme
 développeur local »** — aucun compte, aucun mot de passe.
 
-Pour que l'agent réponde, connectez un modèle depuis l'interface : votre clé Anthropic ou
-OpenAI, un modèle Ollama en local, ou les crédits gratuits de Builder.io.
+![L'écran d'accueil : aucun compte à créer](docs/captures/accueil.png)
 
-## Ce que ça fait
+Le diagnostic, les exports et toute la bibliothèque fonctionnent **sans modèle de
+langage**. Pour que l'agent du chat réponde, connectez-en un depuis l'interface : votre
+clé Anthropic ou OpenAI, un modèle Ollama en local, ou les crédits gratuits de Builder.io.
 
-| | |
-| --- | --- |
-| **La carte narrative** | Les 12 étapes en 3 actes, avec votre courbe d'intensité face à celle de la méthode. L'écart entre les deux est le diagnostic. |
-| **Le carnet de marqueurs** | Vos passages repérés, avec leurs timecodes réels. Vous les réordonnez selon le récit, pas selon la chronologie. |
-| **Le diagnostic** | Douze règles appliquées à votre carte : acte sous-doté, climax sans matière, fin déconnectée, courbe plate. |
-| **Les exports** | CSV, **EDL d'assemblage** pour Resolve et Premiere, chapitres YouTube. Rien ne part sur un serveur. |
-| **Les imports** | Collez un bloc de dérushage, ou donnez votre CSV/EDL. Une lecture à blanc montre ce qui serait créé **et refusé**, ligne par ligne, avant d'écrire. |
-| **Le brief de composition** | Un bouton par acte transforme vos notes et vos timecodes en consigne pour l'agent — « fais-moi un teaser de l'acte III depuis ma carte ». |
-| **La grammaire de mouvement** | 121 chorégraphies déconstruites, triées **par étape du voyage** : la question n'est pas « montre-moi les transitions » mais « qu'est-ce qui sert mon climax ? ». |
-| **La bibliothèque** | 550 prompts livrés, vos ressources rangées par type, catégorie et format, importables et exportables en CSV ou JSON. |
-| **L'agent** | Il travaille sur vos données, par le chat plein écran ou le panneau latéral. |
+## La carte narrative
 
-**Tout reste sur votre machine.** Aucun compte à créer, aucune donnée qui part ailleurs.
+Les 12 étapes en 3 actes. Votre courbe d'intensité en trait plein, celle de la méthode en
+pointillé : **l'écart entre les deux est le diagnostic**.
 
-L'interface suit la langue de votre navigateur parmi onze. Le contenu de la méthode reste
-en français en toutes langues : c'est un référentiel transcrit de sa source, pas de la
-donnée traduisible.
+![La carte narrative : les 12 étapes en 3 actes, et la courbe émotionnelle du montage](docs/captures/carte-narrative.png)
+
+Une étape n'est « couverte » que si elle porte une note. Ni une intensité seule, ni des
+marqueurs rattachés ne suffisent : on peut avoir la matière sans l'intention, et l'outil
+le distingue.
+
+## La grammaire de mouvement
+
+121 chorégraphies de motion design déconstruites — découpage minuté, palette, recette
+Remotion, recette HyperFrames, prompt de reconstruction.
+
+Elles se trient **par étape du voyage**, et c'est tout l'intérêt : la question n'est pas
+« montre-moi les transitions », mais « qu'est-ce qui sert mon climax ? ».
+
+![La grammaire de mouvement : 121 recettes à trier par étape du voyage et par famille](docs/captures/mouvements.png)
+
+Une règle y est inscrite : **l'impact est réservé à l'étape 8**. Le ressort amorti et le
+dépassement ne sont justifiés qu'au climax ; les employer partout vole au climax ce qui le
+distingue.
+
+## Le carnet de marqueurs
+
+Vos passages repérés, avec leurs timecodes réels et le nom du rush. Vous les réordonnez
+selon le récit, pas selon la chronologie — c'est la différence entre un dérushage et un
+montage.
+
+![Le carnet de marqueurs, en ordre narratif ou chronologique](docs/captures/marqueurs.png)
+
+Sortie en **CSV**, en **EDL d'assemblage** pour Resolve et Premiere, ou en chapitres
+YouTube. Entrée par un bloc de dérushage collé, un CSV ou un EDL : une lecture à blanc
+montre ce qui serait créé **et refusé**, ligne par ligne, avant d'écrire.
+
+## La bibliothèque
+
+Vos ressources rangées sur trois axes indépendants — **type** (ce que c'est), **catégorie**
+(à quoi ça sert), **format** (quelle forme). Importables et exportables en CSV ou JSON.
+
+<table>
+<tr>
+<td width="50%"><img alt="La bibliothèque de ressources, rangée par type, catégorie et format" src="docs/captures/bibliotheque.png" /></td>
+<td width="50%"><img alt="Le catalogue de 550 prompts, à trier par catégorie, style et scène" src="docs/captures/catalogue-prompts.png" /></td>
+</tr>
+<tr>
+<td><b>Vos ressources</b> — trois états : brouillon, générée, référence.</td>
+<td><b>550 prompts livrés</b> — à trier par catégorie, style et scène.</td>
+</tr>
+</table>
 
 ## Comment on s'en sert
 
 1. **Posez vos marqueurs** — un passage repéré dans un rush, avec son timecode.
 2. **Rattachez-les aux 12 étapes.** Une étape peut rester vide : c'est une information,
    pas une faute.
-3. **Écrivez ce que chaque étape doit faire.** Une phrase suffit. C'est la note, et non le
-   marqueur, qui rend une étape « couverte » — on peut avoir la matière sans l'intention.
+3. **Écrivez ce que chaque étape doit faire.** Une phrase suffit.
 4. **Demandez un diagnostic.** Il dit où ça cède, et chaque remarque déplie l'étape
    concernée.
 5. **Montez.** Exportez en EDL, ou demandez un brief de composition pour un acte entier.
 
-## À quoi ça ressemble
-
-**La carte narrative**, le cœur du produit : les 12 étapes en 3 actes, votre courbe
-d'intensité en trait plein, celle de la méthode en pointillé.
-
-![La carte narrative : les 12 étapes en 3 actes, et la courbe émotionnelle du montage](docs/captures/carte-narrative.png)
-
-| | |
-| --- | --- |
-| **Le carnet de marqueurs** — chaque moment repéré, rattaché à une étape. L'ordre narratif se règle à la main. | ![Le carnet de marqueurs](docs/captures/marqueurs.png) |
-| **Vos vidéos** — chaque carte montre où en est le récit, pas seulement la fabrication. | ![La liste des vidéos](docs/captures/liste-videos.png) |
-| **Le catalogue de prompts** — 550 prompts à trier par catégorie, style et scène. | ![Le catalogue de prompts](docs/captures/catalogue-prompts.png) |
-| **La bibliothèque** — vos ressources rangées par type, catégorie et format. | ![La bibliothèque](docs/captures/bibliotheque.png) |
+## Les deux thèmes
 
 Le thème suit celui de votre système, et les deux sont tenus : couleurs d'actes, courbe et
 barres de couverture sont redéfinies pour chacun, pas seulement assombries.
 
-| | |
-| --- | --- |
-| ![La carte narrative en thème sombre](docs/captures/carte-narrative-sombre.png) | ![Le chat de l'agent en thème sombre](docs/captures/chat-sombre.png) |
+<table>
+<tr>
+<td width="50%"><img alt="La carte narrative en thème sombre" src="docs/captures/carte-narrative-sombre.png" /></td>
+<td width="50%"><img alt="La grammaire de mouvement en thème sombre" src="docs/captures/mouvements-sombre.png" /></td>
+</tr>
+</table>
+
+L'interface suit la langue de votre navigateur parmi onze. Le contenu de la méthode reste
+en français en toutes langues : c'est un référentiel transcrit de sa source, pas de la
+donnée traduisible.
 
 > Ces captures **se refont à l'identique** : ce qu'elles montrent est du code, pas une
 > base locale. Voir [`tools/captures/README.md`](tools/captures/README.md).
@@ -154,7 +207,7 @@ Pour vous en passer, supprimez `mcp.config.json` : l'application fonctionne sans
 Construit sur [Agent-Native](https://www.agent-native.com) (MIT), en application autonome.
 
 ```
-actions/               45 actions métier — chacune est à la fois outil d'agent,
+actions/               47 actions — chacune est à la fois outil d'agent,
                        hook React, route HTTP et commande en ligne
 server/db/             12 tables PostgreSQL (PGlite en local)
 shared/                la méthode : 12 étapes, 3 actes, 5 questions, 5 symptômes

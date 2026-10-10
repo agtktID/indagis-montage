@@ -438,17 +438,35 @@ try {
   // une adresse inventée rend une icône d'image cassée, et une adresse réelle ferait
   // dépendre une capture du README d'un serveur tiers. Sans URL, la carte retombe sur le
   // libellé du type — c'est aussi l'état réel d'un brouillon pas encore produit.
+  // Douze fiches, réparties sur les trois états. Trois suffiraient à prouver que les
+  // onglets fonctionnent, mais l'onglet par défaut n'en montrerait qu'une : une
+  // bibliothèque à une fiche se lit comme une bibliothèque vide, et c'est la capture du
+  // README qui en paie le prix.
   const ASSETS = [
-    ["Vignette — comparatif 4K/1080p", "image", "social", "16:9", "generated"],
+    // Références — ce que le monteur a rassemblé.
     ["Plan de bureau, ouverture", "video", "video", "16:9", "reference"],
+    ["Générique de fin — à imiter", "video", "video", "16:9", "reference"],
+    ["Nappe sonore — tension sourde", "audio", "other", null, "reference"],
+    ["Inter Tight — titres", "font", "other", null, "reference"],
+    ["Palette — bleu froid, ambre", "palette", "other", null, "reference"],
+    // Générées — ce que l'agent a produit depuis un modèle.
+    ["Vignette — comparatif 4K/1080p", "image", "social", "16:9", "generated"],
+    ["Bandeau vertical — extrait climax", "image", "social", "9:16", "generated"],
+    ["Carte de chapitre — acte II", "image", "hero", "16:9", "generated"],
+    ["Diagramme — courbe d'intensité", "image", "diagram", "16:9", "generated"],
+    // Brouillons — demandé, pas encore produit.
     ["Titre de section — acte II", "image", "hero", "16:9", "draft"],
+    ["Miniature YouTube — essai 3", "image", "social", "16:9", "draft"],
+    ["Logo animé — fin de boucle", "video", "logo", "1:1", "draft"],
   ];
   for (const [name, kind, category, format, status] of ASSETS) {
     await call("upsert-asset", {
       name,
       kind,
       category,
-      format,
+      // Un son, une police ou une palette n'ont pas de rapport d'image : on omet le
+      // champ plutôt que d'envoyer `null`, que le schéma refuserait.
+      ...(format ? { format } : {}),
       status,
       ...(brandKitId ? { brandKitId } : {}),
       ...(status === "generated" && templateId ? { templateId } : {}),
@@ -465,7 +483,7 @@ try {
       "{{objets}} au premier plan, profondeur de champ courte.",
     tags: "ouverture, boucle",
   });
-  console.log("  kit de marque, modèle, 3 ressources, 1 prompt");
+  console.log(`  kit de marque, modèle, ${ASSETS.length} ressources, 1 prompt`);
 
   /* --- Deux voisines, pour que la liste enseigne quelque chose -------------- */
 
