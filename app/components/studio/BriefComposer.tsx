@@ -29,6 +29,11 @@ interface BriefResult {
   markerCount: number;
 }
 
+interface MotionResult {
+  content: string;
+  suggestedSteps: number;
+}
+
 export function BriefComposer({
   videoId,
   openStep,
@@ -40,6 +45,14 @@ export function BriefComposer({
   const t = useT();
   const [pending, setPending] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
+  /**
+   * Joindre la grammaire de mouvement au brief.
+   *
+   * Une case plutôt qu'une seconde rangée de boutons : le mouvement **complète** le
+   * brief, il n'est pas une demande séparée. Quatre boutons de plus auraient suggéré
+   * le contraire, et auraient doublé un choix de périmètre déjà fait juste à côté.
+   */
+  const [withMotion, setWithMotion] = useState(false);
 
   async function compose(scope: string | number, label: string) {
     setPending(String(scope));
@@ -61,9 +74,23 @@ export function BriefComposer({
         return;
       }
 
+      // Le même périmètre, la même vidéo : `suggest-motion` ne refait pas le choix,
+      // il répond à la question d'après — « et avec quel mouvement ? ».
+      let context = brief.content;
+      if (withMotion) {
+        const motion = await callAction<MotionResult>(
+          "suggest-motion",
+          { videoId, scope },
+          { method: "GET" },
+        );
+        context = `${context}\n\n---\n\n${motion.content}`;
+      }
+
       sendToAgentChat({
-        message: t("brief.agentRequest", { scope: label }),
-        context: brief.content,
+        message: t(withMotion ? "brief.agentRequestWithMotion" : "brief.agentRequest", {
+          scope: label,
+        }),
+        context,
         submit: true,
         openSidebar: true,
       });
@@ -105,6 +132,16 @@ export function BriefComposer({
           </Button>
         ))}
       </div>
+      <label className="text-muted-foreground flex items-center gap-1.5 text-xs">
+        <input
+          type="checkbox"
+          checked={withMotion}
+          onChange={(event) => setWithMotion(event.target.checked)}
+          className="accent-primary size-3.5"
+        />
+        <span>{t("brief.withMotion")}</span>
+      </label>
+
       {error ? (
         <p role="alert" className="text-destructive text-xs">
           {error}

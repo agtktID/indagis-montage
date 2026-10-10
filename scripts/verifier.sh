@@ -46,6 +46,10 @@ critere "Aucun import .js relatif dans actions/, server/ et shared/" \
   bash -c '! grep -rqE "from \"\\.{1,2}/[^\"]*\\.js\"" actions/ server/ shared/'
 critere "Le catalogue de prompts n'est pas importé par l'interface" \
   bash -c '! grep -rq "prompt-catalog/index" app/'
+# Même frontière, même raison : 488 Ko de recettes n'ont rien à faire dans le
+# navigateur. L'interface n'importe que `motion-grammar/types`.
+critere "La grammaire de mouvement n'est pas importée par l'interface" \
+  bash -c '! grep -rq "motion-grammar/index" app/'
 critere "Aucune route /api/ ne double une action" \
   bash -c '! find app/routes -name "api.*" 2>/dev/null | grep -q .'
 # La CI installe en --frozen-lockfile. Deux fois déjà, `agent-native upgrade` a
@@ -98,6 +102,13 @@ fi
 titre "La bibliothèque"
 critere "Les 550 prompts du catalogue répondent" \
   bash -c "pnpm action list-prompts --limit 1 2>&1 | grep -q 'catalog: 550'"
+critere "Les 121 recettes de mouvement répondent" \
+  bash -c "pnpm action list-motion-recipes --limit 1 2>&1 | grep -q 'total: 121'"
+# Le filtre par étape est l'axe qui distingue cette bibliothèque d'une banque d'effets.
+# Les trois familles qui servent le climax portent 45 recettes : si la carte narrative
+# dérive, ce nombre bouge, et le critère le dit avant qu'un utilisateur ne le découvre.
+critere "Le filtre narratif restreint aux familles du climax" \
+  bash -c "pnpm action list-motion-recipes --step 8 --limit 1 2>&1 | grep -q 'total: 45'"
 critere "Les modèles et leur taxonomie répondent" \
   bash -c "pnpm action list-asset-templates 2>&1 | grep -q 'templates'"
 critere "Les ressources répondent avec leurs compteurs" \

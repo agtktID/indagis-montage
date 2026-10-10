@@ -9,11 +9,13 @@ import {
   IconPalette,
   IconSparkles,
   IconTemplate,
+  IconWand,
 } from "@tabler/icons-react";
 import { useSearchParams } from "react-router";
 
 import { AssetsView } from "@/components/library/AssetsView";
 import { BrandKitsView } from "@/components/library/BrandKitsView";
+import { MotionView } from "@/components/library/MotionView";
 import { CreateView } from "@/components/library/CreateView";
 import { TemplateEditor } from "@/components/library/TemplateEditor";
 import { PromptsView } from "@/components/library/PromptsView";
@@ -39,6 +41,7 @@ const SECTIONS = [
   { id: "create", labelKey: "library.sectionCreate", Icon: IconSparkles },
   { id: "library", labelKey: "library.sectionLibrary", Icon: IconLayoutGrid },
   { id: "prompts", labelKey: "library.sectionPrompts", Icon: IconMessage2Bolt },
+  { id: "motion", labelKey: "library.sectionMotion", Icon: IconWand },
   { id: "templates", labelKey: "library.sectionTemplates", Icon: IconTemplate },
   { id: "starter", labelKey: "library.sectionStarter", Icon: IconDownload },
   { id: "kits", labelKey: "library.sectionKits", Icon: IconPalette },
@@ -113,6 +116,7 @@ export default function LibraryRoute() {
           )
         ) : null}
         {section === "prompts" ? <PromptsView /> : null}
+        {section === "motion" ? <MotionView /> : null}
         {section === "starter" ? <StarterView onInstalled={() => go("templates")} /> : null}
         {section === "kits" ? <BrandKitsView /> : null}
         {section === "journal" ? <JournalView /> : null}
