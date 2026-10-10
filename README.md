@@ -1,316 +1,199 @@
-# Indagis Studio
+<p align="left">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://shieldcn.dev/header/graph.svg?title=Indagis%20Studio&subtitle=Structurer%20un%20montage%20comme%20un%20r%C3%A9cit&align=left&mode=dark" />
+    <img alt="Indagis Studio — structurer un montage comme un récit" src="https://shieldcn.dev/header/graph.svg?title=Indagis%20Studio&subtitle=Structurer%20un%20montage%20comme%20un%20r%C3%A9cit&align=left&mode=light" />
+  </picture>
+</p>
 
-[![CI](https://github.com/agtktID/indagisdisign/actions/workflows/ci.yml/badge.svg)](https://github.com/agtktID/indagisdisign/actions/workflows/ci.yml)
-[![Licence MIT](https://img.shields.io/badge/licence-MIT-blue.svg)](LICENSE)
+<p align="left">
+  <a href="https://github.com/agtktID/indagisdisign/actions/workflows/ci.yml"><picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://shieldcn.dev/github/ci/agtktID/indagisdisign.svg?variant=secondary&mode=dark" />
+    <img alt="État de l'intégration continue" src="https://shieldcn.dev/github/ci/agtktID/indagisdisign.svg?variant=secondary&mode=light" />
+  </picture></a>
+  <a href="LICENSE"><picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://shieldcn.dev/github/license/agtktID/indagisdisign.svg?variant=secondary&mode=dark" />
+    <img alt="Licence MIT" src="https://shieldcn.dev/github/license/agtktID/indagisdisign.svg?variant=secondary&mode=light" />
+  </picture></a>
+  <a href="https://github.com/agtktID/indagisdisign/commits"><picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://shieldcn.dev/github/last-commit/agtktID/indagisdisign.svg?variant=secondary&mode=dark" />
+    <img alt="Dernier commit" src="https://shieldcn.dev/github/last-commit/agtktID/indagisdisign.svg?variant=secondary&mode=light" />
+  </picture></a>
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://shieldcn.dev/badge/donn%C3%A9es-100%25%20locales-green.svg?variant=secondary&logo=false&mode=dark" />
+    <img alt="Données 100 % locales" src="https://shieldcn.dev/badge/donn%C3%A9es-100%25%20locales-green.svg?variant=secondary&logo=false&mode=light" />
+  </picture>
+</p>
 
-Un atelier de **structuration narrative pour le montage vidéo**, fondé sur la méthode du
-voyage du héros. Vous posez vos rushes, l'application vous aide à en faire un récit.
-
-Ce n'est pas un logiciel de montage, et ce n'est pas un Trello de plus. C'est l'outil qui
-manque entre les deux : celui qui vous dit **ce qui manque à votre histoire**.
+Vous avez quarante minutes de rushes et une timeline vide. Indagis Studio tient **la carte
+de votre récit** — les 12 étapes du voyage du héros, rattachées aux timecodes réels de vos
+fichiers — et vous dit **ce qui manque à votre histoire** avant que le montage ne vous le
+fasse payer.
 
 ![De la liste des vidéos au brief de l'acte III envoyé à l'agent](docs/captures/demo.gif)
 
-*De la liste des vidéos à un brief de composition pour l'acte III, en onze secondes.
-Aucun autre outil ne peut exécuter cette phrase : il faut posséder à la fois les étapes
-du récit et les timecodes réels des rushes.*
+---
 
 ## Le problème
 
-Vous avez quarante minutes de rushes et une timeline vide. Le problème n'est pas
-technique — vous savez couper. Le problème est que **vous ne savez pas encore quelle
-histoire vous racontez**, et vous allez le découvrir au montage, trop tard, après six
-heures passées sur un acte II qui ne tient pas.
+Le problème n'est pas technique : vous savez couper. C'est que vous ne savez pas encore
+quelle histoire vous racontez, et vous le découvrirez au montage — trop tard, après six
+heures sur un acte II qui ne tient pas.
 
-Les outils que vous avez déjà ne vous aident pas là-dessus :
-
-| Outil | Ce qu'il sait faire | Ce qu'il ignore |
+| Vos outils actuels | Ce qu'ils savent faire | Ce qu'ils ignorent |
 | --- | --- | --- |
 | Resolve, Premiere | couper, étalonner, exporter | si votre récit tient debout |
 | Notion, Trello | suivre où en est la fabrication | ce qu'il y a **dans** vos rushes |
-| Un document de script | poser une intention | la confronter aux plans réellement tournés |
+| Un document de script | poser une intention | la confronter aux plans tournés |
 
-Indagis Studio occupe l'espace entre les trois. Il ne monte pas à votre place et ne gère
-pas vos tâches : il tient **la carte de votre récit**, rattachée aux timecodes réels de
-vos fichiers, et vous dit ce qui manque avant que le montage ne vous le fasse payer.
-
-## Pour qui
-
-Pour qui monte ses propres vidéos et sent que le problème est en amont du logiciel de
-montage : vidéastes, documentaristes, monteurs indépendants, formateurs. Il faut accepter
-une méthode — **le voyage du héros, en 12 étapes et 3 actes** — et vouloir s'en servir
-comme d'une carte, pas comme d'une liste de cases à cocher.
-
-Ce n'est **pas** pour vous si vous cherchez un logiciel de montage, un gestionnaire de
-projet d'équipe, ou un outil qui écrirait le récit à votre place. Studio aide à nommer ce
-que vous avez déjà filmé ; il n'invente pas de scènes.
-
-## Comment on s'en sert
-
-1. **Créez un projet, posez vos marqueurs** — un passage repéré dans un rush, avec son
-   timecode. Collez-les depuis votre dérushage, ou importez le CSV ou l'EDL que vous avez
-   déjà.
-2. **Rattachez-les aux 12 étapes.** Une étape peut rester vide : c'est une information,
-   pas une faute.
-3. **Écrivez ce que chaque étape doit faire** — une phrase suffit. C'est la note, et non
-   le marqueur, qui rend une étape « couverte » : on peut avoir la matière sans avoir
-   l'intention.
-4. **Demandez un diagnostic.** Douze règles s'appliquent à votre carte et disent où ça
-   cède — acte sous-doté, climax sans matière, fin déconnectée, courbe plate.
-5. **Montez.** Exportez le carnet en EDL d'assemblage pour Resolve ou Premiere, en
-   chapitres YouTube, ou demandez à l'agent un brief de composition pour un acte entier.
-
-## Ce que ça fait
-
-- **Une carte narrative** — les 12 étapes du voyage du héros, en 3 actes, avec la courbe
-  émotionnelle de votre montage. Chaque étape porte la définition, le conseil de montage
-  et l'exercice de la méthode.
-- **Un carnet de marqueurs** — vos passages repérés, avec leurs timecodes réels, que vous
-  pouvez réordonner selon la logique du récit et non celle de la chronologie. Exportable
-  en CSV, en **EDL d'assemblage** à importer dans Resolve ou Premiere, et en chapitres
-  YouTube.
-- **Un import qui vous évite de retaper** — collez un bloc depuis votre dérushage, ou
-  donnez le CSV ou l'EDL que vous avez déjà. Une lecture à blanc montre ce qui serait
-  créé et ce qui serait refusé, ligne par ligne, avant d'écrire quoi que ce soit.
-- **Une fiche de préparation** — les cinq questions à se poser avant de monter.
-- **Un diagnostic de structure** — douze règles appliquées mécaniquement à votre carte :
-  acte sous-couvert, climax sans enjeu lisible, fin déconnectée, courbe plate… Il se
-  lance **depuis la carte**, et chaque remarque déplie l'étape qu'elle concerne.
-- **Une boucle d'essais** — observation → hypothèse → tentative → verdict, avec le rappel
-  de la règle qui compte : une seule chose à la fois.
-- **Un brief de composition** — un bouton par acte, en haut de la carte, qui transforme
-  vos notes, vos intensités et vos timecodes en consigne pour l'agent. C'est ce qui rend
-  possible « fais-moi un teaser de l'acte III depuis ma carte ».
-- **Une grammaire de mouvement** — 121 chorégraphies déconstruites, avec leur découpage
-  timecodé, leur palette et leur recette pour les deux moteurs. Elles se trient **par
-  étape du voyage** : la question posée n'est pas « montre-moi les transitions » mais
-  « qu'est-ce qui sert mon climax ? ».
-- **Un agent** qui travaille sur les mêmes données que vous, par le chat plein écran ou
-  par le panneau de la barre latérale.
-
-Tout est en local. Aucun compte à créer, aucune donnée qui part ailleurs.
-
-L'interface est **en français**, et suit la langue du navigateur parmi les onze que le
-framework propose. Le contenu de la méthode — les 12 étapes, les 3 actes, les 5 questions
-— reste français en toutes langues : c'est du référentiel transcrit de sa source, pas de
-la donnée traduisible. Même règle que pour les corps de prompts du catalogue.
+Indagis Studio occupe l'espace entre les trois. Ce n'est ni un logiciel de montage, ni un
+gestionnaire de tâches — et il n'écrit pas à votre place : il aide à **nommer** ce que
+vous avez déjà filmé.
 
 ## Démarrer
 
 Il faut **Node.js 22.22 ou plus** et **pnpm**.
 
 ```bash
-git clone <votre-fork>
-cd indagis-studio
+git clone https://github.com/agtktID/indagisdisign.git
+cd indagisdisign
 corepack enable
 pnpm install
 pnpm dev
 ```
 
 L'application s'ouvre sur `http://localhost:8080`. Choisissez **« Continuer comme
-développeur local »** — aucun mot de passe n'est nécessaire.
+développeur local »** — aucun compte, aucun mot de passe.
 
-Pour que l'agent fonctionne, connectez un modèle depuis l'interface : Builder.io offre des
-crédits gratuits, ou utilisez votre propre clé Anthropic, OpenAI, ou un modèle Ollama en
-local.
+Pour que l'agent réponde, connectez un modèle depuis l'interface : votre clé Anthropic ou
+OpenAI, un modèle Ollama en local, ou les crédits gratuits de Builder.io.
+
+## Ce que ça fait
+
+| | |
+| --- | --- |
+| **La carte narrative** | Les 12 étapes en 3 actes, avec votre courbe d'intensité face à celle de la méthode. L'écart entre les deux est le diagnostic. |
+| **Le carnet de marqueurs** | Vos passages repérés, avec leurs timecodes réels, réordonnables selon le récit et non la chronologie. |
+| **Le diagnostic** | Douze règles appliquées à votre carte : acte sous-doté, climax sans matière, fin déconnectée, courbe plate. |
+| **Les exports** | CSV, **EDL d'assemblage** pour Resolve et Premiere, chapitres YouTube. Rien ne part sur un serveur. |
+| **Les imports** | Collez un bloc de dérushage, ou donnez votre CSV/EDL. Une lecture à blanc montre ce qui serait créé **et refusé**, ligne par ligne, avant d'écrire. |
+| **Le brief de composition** | Un bouton par acte transforme vos notes et vos timecodes en consigne pour l'agent — « fais-moi un teaser de l'acte III depuis ma carte ». |
+| **La grammaire de mouvement** | 121 chorégraphies déconstruites, triées **par étape du voyage** : la question n'est pas « montre-moi les transitions » mais « qu'est-ce qui sert mon climax ? ». |
+| **La bibliothèque** | 550 prompts livrés, vos ressources rangées par type, catégorie et format, importables et exportables en CSV ou JSON. |
+| **L'agent** | Il travaille sur vos données, par le chat plein écran ou le panneau latéral. |
+
+**Tout reste sur votre machine.** Aucun compte à créer, aucune donnée qui part ailleurs.
+
+L'interface suit la langue de votre navigateur parmi onze. Le contenu de la méthode reste
+en français en toutes langues : c'est un référentiel transcrit de sa source, pas de la
+donnée traduisible.
+
+## Comment on s'en sert
+
+1. **Posez vos marqueurs** — un passage repéré dans un rush, avec son timecode.
+2. **Rattachez-les aux 12 étapes.** Une étape peut rester vide : c'est une information,
+   pas une faute.
+3. **Écrivez ce que chaque étape doit faire.** Une phrase suffit. C'est la note, et non le
+   marqueur, qui rend une étape « couverte » — on peut avoir la matière sans l'intention.
+4. **Demandez un diagnostic.** Il dit où ça cède, et chaque remarque déplie l'étape
+   concernée.
+5. **Montez.** Exportez en EDL, ou demandez un brief de composition pour un acte entier.
+
+## À quoi ça ressemble
+
+**La carte narrative**, le cœur du produit : les 12 étapes en 3 actes, votre courbe
+d'intensité en trait plein, celle de la méthode en pointillé.
+
+![La carte narrative : les 12 étapes en 3 actes, et la courbe émotionnelle du montage](docs/captures/carte-narrative.png)
+
+| | |
+| --- | --- |
+| **Le carnet de marqueurs** — chaque moment repéré, rattaché à une étape, triable en ordre narratif. | ![Le carnet de marqueurs](docs/captures/marqueurs.png) |
+| **Vos vidéos** — chaque carte montre où en est le récit, pas seulement la fabrication. | ![La liste des vidéos](docs/captures/liste-videos.png) |
+| **Le catalogue de prompts** — 550 prompts triables par catégorie, style et scène. | ![Le catalogue de prompts](docs/captures/catalogue-prompts.png) |
+| **La bibliothèque** — vos ressources rangées par type, catégorie et format. | ![La bibliothèque](docs/captures/bibliotheque.png) |
+
+Le thème suit celui de votre système, et les deux sont tenus : couleurs d'actes, courbe et
+barres de couverture sont redéfinies pour chacun, pas seulement assombries.
+
+| | |
+| --- | --- |
+| ![La carte narrative en thème sombre](docs/captures/carte-narrative-sombre.png) | ![Le chat de l'agent en thème sombre](docs/captures/chat-sombre.png) |
+
+> Ces captures sont **régénérables** : ce qu'elles montrent est du code, pas une base
+> locale. Voir [`tools/captures/README.md`](tools/captures/README.md).
 
 ## Fabriquer des vidéos depuis vos cartes
 
-L'agent peut transformer une carte narrative en vidéo. Deux moteurs sont branchés, sous
-forme de **ponts locaux** qui démarrent avec l'application — vous n'avez rien à lancer.
+L'agent peut transformer une carte narrative en composition vidéo. Deux moteurs sont
+branchés comme **ponts locaux**, démarrés avec l'application.
 
-| Moteur | Licence | Outils |
-| --- | --- | --- |
-| [HyperFrames](https://github.com/heygen-com/hyperframes) | Apache-2.0 | 7 |
-| [Remotion](https://www.remotion.dev) | source-available, **voir ci-dessous** | 8 |
+| Moteur | Licence |
+| --- | --- |
+| [HyperFrames](https://github.com/heygen-com/hyperframes) | Apache-2.0 — proposé par défaut |
+| [Remotion](https://www.remotion.dev) | source-available, **pas open source** |
 
-Le rendu se fait **sur votre machine**. Il faut donc **Chrome** et **ffmpeg** installés.
-Pour vérifier :
+Le rendu se fait **sur votre machine** : il faut Chrome et ffmpeg. Pour vérifier :
 
 ```bash
 node tools/hyperframes-bridge/smoke-test.mjs
 node tools/remotion-bridge/smoke-test.mjs
 ```
 
-### Remotion n'est pas open source
-
-Remotion est gratuit pour les particuliers, les organisations à but non lucratif et les
-entreprises **de trois salariés au plus**. Au-delà, une licence d'entreprise est requise —
-voir [remotion.pro/license](https://www.remotion.pro/license).
-
-Indagis Studio **ne distribue pas** Remotion : le pont l'installe à la demande dans votre
-propre projet vidéo. Vous restez responsable de votre éligibilité.
-
-HyperFrames, en Apache-2.0, n'a aucune de ces contraintes.
-
-### Désactiver les ponts
+**Remotion est gratuit pour les particuliers, les associations et les entreprises de trois
+salariés au plus** ; au-delà, une licence d'entreprise est requise
+([remotion.pro/license](https://www.remotion.pro/license)). Indagis Studio ne le distribue
+pas : le pont l'installe à la demande dans votre projet vidéo, et c'est à ce moment que
+vous acceptez sa licence.
 
 Les ponts exécutent des commandes sur votre machine. Ils sont volontairement étroits —
 liste blanche de sous-commandes, jamais de shell, écritures confinées au dossier `video/`.
-Si vous n'en voulez pas, supprimez `mcp.config.json` : l'application fonctionne sans.
+Pour vous en passer, supprimez `mcp.config.json` : l'application fonctionne sans.
 
-## À quoi ça ressemble
+## Sous le capot
 
-**La carte narrative**, le cœur du produit : les 12 étapes en 3 actes, et votre courbe
-d'intensité face à celle de la méthode — trait plein contre pointillé. L'écart entre les
-deux est le diagnostic.
-
-![La carte narrative : les 12 étapes en 3 actes, et la courbe émotionnelle du montage](docs/captures/carte-narrative.png)
-
-| | |
-| --- | --- |
-| **Le carnet de marqueurs** — chaque moment repéré dans les rushes, avec son timecode, rattaché à une étape du récit. Triable en ordre narratif, qui n'est pas l'ordre chronologique. | ![Le carnet de marqueurs](docs/captures/marqueurs.png) |
-| **Vos vidéos** — chaque carte montre où en est le récit, pas seulement où en est la fabrication. Trois projets, trois couvertures : 0/12, 4/12, 12/12. | ![La liste des vidéos](docs/captures/liste-videos.png) |
-| **Le catalogue de prompts** — 550 prompts livrés, triables par catégorie, style et scène. | ![Le catalogue de prompts](docs/captures/catalogue-prompts.png) |
-| **La bibliothèque de ressources** — vos visuels rangés par type, catégorie et format. | ![La bibliothèque](docs/captures/bibliotheque.png) |
-
-### Et en thème sombre
-
-Le thème suit celui de votre système. Rien n'est à régler, et les deux sont tenus : les
-couleurs des trois actes, la courbe et les barres de couverture sont redéfinies pour
-chacun, pas seulement assombries.
-
-| | |
-| --- | --- |
-| ![La carte narrative en thème sombre](docs/captures/carte-narrative-sombre.png) | ![Le chat de l'agent en thème sombre](docs/captures/chat-sombre.png) |
-
-Les images se régénèrent toutes seules, et c'est volontaire — une capture qui ment sur
-l'état du produit est pire que pas de capture. **Le contenu qu'elles montrent est du
-code**, pas une base locale : `seed-demo.mjs` pose un récit de démonstration complet, et
-n'importe qui peut refaire les mêmes images à l'identique. Lancer `pnpm dev` dans un
-autre terminal, puis, sur une base vierge :
-
-```bash
-node tools/captures/seed-demo.mjs <chromium> http://localhost:8080
-node tools/captures/shoot.mjs <chromium> http://localhost:8080 docs/captures <id-video>
-node tools/captures/shoot.mjs <chromium> http://localhost:8080 docs/captures <id-video> --sombre
-node tools/captures/demo.mjs <chromium> <ffmpeg> http://localhost:8080 docs/captures/demo.gif <id-video>
-```
-
-`seed-demo.mjs` imprime l'identifiant à passer aux deux autres. Il **refuse de tourner
-sur une base qui contient déjà des vidéos** : écraser un vrai travail pour fabriquer une
-capture serait un mauvais échange, et `--force` rend ce geste délibéré.
-
-L'identifiant doit désigner une vidéo à la carte complète, sinon les images montrent un
-écran vide. `shoot.mjs` visite des URL ; `demo.mjs` **joue le parcours** — c'est la seule
-façon de montrer qu'un bouton agit. Les deux binaires sont ceux que Playwright installe
-(`~/.cache/ms-playwright/`), aucune dépendance ajoutée au projet.
-
-Le jeu de démonstration écrit **par les actions, en HTTP**, comme l'interface : il passe
-donc par les mêmes règles métier que n'importe quelle saisie, et une capture ne peut pas
-montrer un état que l'application refuserait.
-
-## Comment c'est construit
-
-Sur [Agent-Native](https://www.agent-native.com) (MIT), en application autonome.
+Construit sur [Agent-Native](https://www.agent-native.com) (MIT), en application autonome.
 
 ```
-actions/              42 actions métier — chacune est à la fois outil d'agent,
-                      hook React, route HTTP et commande en ligne
-server/db/            13 tables PostgreSQL (PGlite en local)
-shared/               la méthode : 12 étapes, 3 actes, 5 questions, 5 symptômes
+actions/               45 actions métier — chacune est à la fois outil d'agent,
+                       hook React, route HTTP et commande en ligne
+server/db/             12 tables PostgreSQL (PGlite en local)
+shared/                la méthode : 12 étapes, 3 actes, 5 questions, 5 symptômes
 shared/prompt-catalog/ 550 prompts, généré — voir tools/prompt-catalog/
-app/routes/           4 écrans — les vidéos, la fiche, le calendrier, la bibliothèque
-.agents/              ce que l'agent sait faire
-tools/                les ponts vidéo et l'import du catalogue
-specs/                la spécification, le plan et les tâches (Spec Kit)
+shared/motion-grammar/ 121 recettes de mouvement, généré — voir tools/motion-grammar/
+app/routes/            4 écrans : les vidéos, la fiche, le calendrier, la bibliothèque
+.agents/               ce que l'agent sait faire
+tools/                 les ponts vidéo et les générateurs de catalogues
 ```
 
-Le contenu de la méthode vit dans `shared/hero-journey.ts`, pas en base : c'est du
-référentiel, pas de la donnée utilisateur. Même principe pour le catalogue de
-prompts et les ressources de départ — livrés dans le code, donc présents dès
-l'installation, et intouchables autrement qu'en les copiant.
+La méthode vit dans `shared/hero-journey.ts`, pas en base : c'est du référentiel, pas de
+la donnée utilisateur. Même principe pour les deux catalogues — livrés dans le code, donc
+présents dès l'installation, et modifiables uniquement en les copiant.
 
-## Le catalogue de prompts
-
-La bibliothèque embarque **550 prompts** — 541 pour l'image, 9 cas d'usage vidéo —
-triables sur trois axes : catégorie, style, scène. Les corps sont repris tels quels
-de deux dépôts sous licence MIT ; seuls les titres ont été traduits en français, le
-titre d'origine restant affiché sous chaque fiche.
-
-Voir [`CREDITS.md`](CREDITS.md) pour l'attribution, et
-[`tools/prompt-catalog/README.md`](tools/prompt-catalog/README.md) pour reconstruire
-le catalogue depuis une autre source.
-
-## La grammaire de mouvement
-
-La section **Mouvements** de la bibliothèque porte **121 recettes de motion design
-déconstruites** : pour chacune, un découpage timecodé, la palette, les calques, la
-recette Remotion, la recette HyperFrames et un prompt de reconstruction.
-
-Ce qui la distingue d'une banque d'effets : elle est **indexée par fonction
-narrative**. Chacune des 12 étapes du voyage dit ce qu'elle demande au mouvement, et
-quelles familles la servent.
-
-> **Étape 8, le climax** — « Le seul endroit où un impact est mérité : c'est l'unique
-> étape où le ressort amorti et le dépassement sont justifiés par le récit. Les employer
-> ailleurs vole au climax ce qui le distingue. »
-
-Sous les 121 recettes il n'y a que **six primitives** — entrée premium, tracé et
-déplacement de point, caméra 2D, appareil en 2,5D, collage papier, graphiques et
-compteurs — plus la table qui dit comment passer d'un moteur à l'autre. Les connaître
-permet de composer sans recette ; une recette sert alors de calibrage.
-
-Et une étape que vous n'avez pas encore écrite ne reçoit **aucune** proposition. Elle est
-annoncée comme vide. Proposer un mouvement pour une intention qui n'existe pas, ce serait
-inventer la scène à votre place.
-
-Voir [`CREDITS.md`](CREDITS.md) pour la provenance — l'analyse est publiée, jamais les
-médias analysés — et
-[`tools/motion-grammar/README.md`](tools/motion-grammar/README.md) pour la reconstruire.
-
-## Vérifier
+### Vérifier
 
 ```bash
 bash scripts/verifier.sh
 ```
 
-Vingt-huit critères, chacun avec la commande qui le démontre : les quatre portes, les
-frontières d'architecture, le parcours complet d'un monteur contre une vraie base, et la
-bibliothèque. Le script finit par ce qui reste **non prouvé** — il ne prétend pas que
-tout est vérifié quand ça ne l'est pas.
+Vingt-huit critères, chacun avec la commande qui le démontre, et une section finale sur ce
+qui reste **non prouvé** — le script ne prétend pas que tout est vérifié quand ça ne l'est
+pas. S'y ajoutent **229 tests**, dont le contrat d'écriture de chaque action contre une
+vraie base.
 
-L'un de ces critères vérifie qu'**aucune action métier n'est dépourvue de bouton**. Il a
-été ajouté après coup : `get-narrative-brief` a vécu une PR entière sans point d'entrée,
-marchait en ligne de commande, et échouait en 405 dans un navigateur. Rien ne le voyait,
-puisqu'il n'y avait rien à cliquer.
+## Documentation
 
-Les actions sont aussi testées **une par une**, contre une base PGlite en mémoire montée
-depuis les vraies migrations. Ces tests-là ne refont pas le parcours : ils couvrent ce
-qu'une modification garde quand on ne le lui dit pas, ce qu'elle refuse, et le fait qu'un
-compte ne voie jamais les lignes d'un autre.
-
-Les portes seules, si c'est tout ce que vous voulez :
-
-```bash
-pnpm typecheck
-pnpm test
-pnpm agent-native:doctor
-pnpm build
-```
-
-## Où en est le projet
-
-[`docs/ETAT-DU-PROJET.md`](docs/ETAT-DU-PROJET.md) dit ce qui est fait et ce qui reste,
-avec la commande qui reprouve chaque ligne. C'est le document à lire avant de proposer
-quoi que ce soit.
-
-## Contribuer
-
-Les règles du projet et les trois portes à passer sont dans
-[CONTRIBUTING.md](CONTRIBUTING.md). Pour une faille de sécurité, ne pas ouvrir
-d'issue : voir [SECURITY.md](SECURITY.md).
+| Document | Ce qu'il contient |
+| --- | --- |
+| [`docs/ETAT-DU-PROJET.md`](docs/ETAT-DU-PROJET.md) | Ce qui est fait, ce qui reste, et la commande qui reprouve chaque ligne |
+| [`AGENTS.md`](AGENTS.md) | Le contrat technique, pour les agents comme pour les humains |
+| [`CONTRIBUTING.md`](CONTRIBUTING.md) | Les règles du projet et les portes à passer |
+| [`CREDITS.md`](CREDITS.md) | L'attribution du contenu de tiers |
+| [`SECURITY.md`](SECURITY.md) | Signaler une faille — **pas** par une issue publique |
 
 ## Licence
 
 [MIT](LICENSE).
 
-Le projet embarque du contenu de tiers, conservé avec son attribution — 550 prompts
-sous licence MIT, et la méthode narrative transcrite de sa source. Le détail est
-dans [CREDITS.md](CREDITS.md).
-
-Un mot sur les moteurs vidéo : **HyperFrames** est en Apache-2.0 et proposé par
-défaut. **Remotion n'est pas open source** — gratuit pour les particuliers, les
-associations et les entreprises de trois salariés au plus, licence d'entreprise
-au-delà. Ce n'est donc pas une dépendance d'Indagis Studio : le pont l'installe à la
-demande dans votre projet vidéo, et c'est à ce moment que vous acceptez sa licence.
+Le projet embarque du contenu de tiers conservé avec son attribution : 550 prompts sous
+licence MIT, et la méthode narrative transcrite de sa source. Le détail est dans
+[CREDITS.md](CREDITS.md).
