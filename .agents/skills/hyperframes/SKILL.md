@@ -36,11 +36,14 @@ C'est le pont : Studio a déjà la matière dont une composition a besoin.
 | Les marqueurs (`list-markers`) avec `startMs`/`endMs` | les points de montage réels, en millisecondes — directement exploitables |
 | `sortOrder` des marqueurs | **l'ordre narratif**, qui peut différer du chronologique. C'est lui qui fait foi pour la composition, pas le timecode. |
 | Le titre et la fiche de préparation | le texte à l'écran, les cartons, la promesse à tenir |
+| `suggest-motion` sur la même vidéo | **le geste visuel que l'étape demande** : fonction de mouvement, primitives, recettes calibrées |
 
 ## Comment procéder
 
 1. `get-story-map` pour la structure, jamais de mémoire.
 2. `list-markers` en `order: "narrative"` — c'est l'ordre voulu par l'utilisateur.
+2bis. `suggest-motion` pour savoir **quel mouvement** sert chaque étape, au lieu de
+   choisir les effets au hasard. Voir la section dédiée plus bas.
 3. Construire le brief : une scène par étape **couverte** (une étape sans note n'a rien à
    montrer), sa durée déduite de ses marqueurs, son intensité, sa couleur d'acte.
 4. Si les outils MCP existent : `doctor` d'abord (Chrome et ffmpeg présents ?), puis
@@ -55,6 +58,32 @@ C'est le pont : Studio a déjà la matière dont une composition a besoin.
 - Ne pas trier les marqueurs par timecode quand l'utilisateur a posé un ordre narratif.
 - Ne pas annoncer un rendu terminé sans identifiant renvoyé par un outil.
 - Ne pas proposer d'installer HyperFrames « dans l'app » : ce n'est pas une option.
+- Ne pas réserver l'impact à autre chose que l'étape 8.
+
+## La grammaire de mouvement : ne pas composer à l'aveugle
+
+Avant d'écrire une composition, appeler **`suggest-motion --videoId <id> --scope <acte>`**.
+Elle renvoie, étape par étape, ce que l'étape demande au mouvement, les primitives à
+employer, et des recettes avec leurs durées et leurs easings mesurés.
+
+Sans elle, le choix des effets est arbitraire. Avec elle, il est motivé par le récit :
+une entrée de 12–18 frames en cubic-out à l'étape 1, un impact **seulement** à l'étape 8.
+
+Trois règles qui en découlent :
+
+- **Le ressort amorti et le dépassement sont réservés à l'étape 8.** C'est la seule étape
+  où le récit les justifie. Les mettre partout vole au climax ce qui le distingue.
+- **Les trois interdits sont absolus** : aucune horloge réelle, aucun `Math.random()` non
+  graine, aucune animation autonome. Une timeline GSAP est `paused: true` et se déplace
+  par `tl.time(frame / fps)`. Sans ça, aucune comparaison de frames n'est possible — donc
+  aucune vérification.
+- **Une recette donne un calibrage, pas un contenu.** Ses durées et ses easings sont des
+  mesures réutilisables ; son sujet, ses textes et ses images viennent de la carte de
+  l'utilisateur et de ses ressources autorisées.
+
+`list-motion-recipes --step 8` liste tout ce qui sert le climax ;
+`--search <titre>` renvoie le corps complet d'une recette, que `suggest-motion` omet pour
+rester lisible.
 
 ## Où est la référence complète
 

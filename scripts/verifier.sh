@@ -46,6 +46,10 @@ critere "Aucun import .js relatif dans actions/, server/ et shared/" \
   bash -c '! grep -rqE "from \"\\.{1,2}/[^\"]*\\.js\"" actions/ server/ shared/'
 critere "Le catalogue de prompts n'est pas importé par l'interface" \
   bash -c '! grep -rq "prompt-catalog/index" app/'
+# Même frontière, même raison : 488 Ko de recettes n'ont rien à faire dans le
+# navigateur. L'interface n'importe que `motion-grammar/types`.
+critere "La grammaire de mouvement n'est pas importée par l'interface" \
+  bash -c '! grep -rq "motion-grammar/index" app/'
 critere "Aucune route /api/ ne double une action" \
   bash -c '! find app/routes -name "api.*" 2>/dev/null | grep -q .'
 # La CI installe en --frozen-lockfile. Deux fois déjà, `agent-native upgrade` a
@@ -61,6 +65,13 @@ critere "Aucune action métier sans point d'entrée dans l'interface" \
   bash -c 'for a in actions/*.ts; do n=$(basename "$a" .ts);
     case "$n" in navigate|view-screen|run|provider-api-request) continue;; esac
     grep -rqE "\"$n\"|'"'"'$n'"'"'" app/ || exit 1; done'
+# Deux fois, une règle `**/data/` du .gitignore a avalé un catalogue généré. Tout
+# passait en local — les fichiers sont là — et la CI échouait sur un module
+# introuvable, parce qu'ils n'étaient jamais poussés. Un fichier qu'un module importe
+# et que git ignore est un échec que seule la CI voit, et trop tard.
+critere "Tout ce que shared/ importe est suivi par git" \
+  bash -c 'for f in $(grep -rhoE "from \"\./data/[a-z-]+\.ts\"" shared/ | sed -E "s|.*/([a-z-]+)\.ts.*|\1|" | sort -u); do
+    git ls-files --error-unmatch shared/*/data/"$f".ts >/dev/null 2>&1 || exit 1; done'
 critere "Aucun secret dans les fichiers suivis" \
   bash -c '! git ls-files -z | xargs -0 grep -lIE "(sk-[A-Za-z0-9_-]{16,})|(gh[pousr]_[A-Za-z0-9]{20,})|(AKIA[0-9A-Z]{16})|(-----BEGIN [A-Z ]*PRIVATE KEY)" 2>/dev/null | grep -q .'
 
@@ -98,6 +109,13 @@ fi
 titre "La bibliothèque"
 critere "Les 550 prompts du catalogue répondent" \
   bash -c "pnpm action list-prompts --limit 1 2>&1 | grep -q 'catalog: 550'"
+critere "Les 121 recettes de mouvement répondent" \
+  bash -c "pnpm action list-motion-recipes --limit 1 2>&1 | grep -q 'total: 121'"
+# Le filtre par étape est l'axe qui distingue cette bibliothèque d'une banque d'effets.
+# Les trois familles qui servent le climax portent 45 recettes : si la carte narrative
+# dérive, ce nombre bouge, et le critère le dit avant qu'un utilisateur ne le découvre.
+critere "Le filtre narratif restreint aux familles du climax" \
+  bash -c "pnpm action list-motion-recipes --step 8 --limit 1 2>&1 | grep -q 'total: 45'"
 critere "Les modèles et leur taxonomie répondent" \
   bash -c "pnpm action list-asset-templates 2>&1 | grep -q 'templates'"
 critere "Les ressources répondent avec leurs compteurs" \

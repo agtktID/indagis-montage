@@ -107,7 +107,7 @@ données) :
 
 ## Les actions
 
-Quarante-deux actions métier, plus les deux standard. Toutes définies une seule fois avec
+Quarante-quatre actions métier, plus les deux standard. Toutes définies une seule fois avec
 `defineAction()` : outil d'agent, hook React, route HTTP, commande CLI et outil MCP/A2A
 d'un même geste. **Aucune route `/api/*` ne double une action**, export CSV compris.
 
@@ -136,6 +136,8 @@ d'un même geste. **Aucune route `/api/*` ne double une action**, export CSV com
 | `resolve-experiment` | Fait avancer ; **exige un verdict** pour clore |
 | `diagnose-structure` · lecture | Les règles de la méthode appliquées à la carte |
 | `get-narrative-brief` · lecture | La carte en brief de composition — tout le récit, un acte, ou une étape |
+| `list-motion-recipes` · lecture | La grammaire de mouvement : 121 recettes, triables par famille, moteur, **et étape du voyage** |
+| `suggest-motion` · lecture | Ce que chaque étape couverte demande au mouvement, et les recettes qui la servent |
 | `upsert-publication` | Cible de diffusion, plateforme en texte libre |
 | `list-publications` · lecture | Les cibles de diffusion, avec leurs relevés |
 | `record-metrics` | Relevé manuel, un par jour et par publication |
@@ -150,7 +152,7 @@ d'un même geste. **Aucune route `/api/*` ne double une action**, export CSV com
 | `upsert-asset` | Ajoute ou modifie une ressource — **URL seulement** |
 | `delete-asset` | Retire la fiche ; le fichier d'origine reste |
 | `list-prompts` · lecture | Le catalogue, les prompts du voyage du héros et ceux de l'utilisateur |
-| `upsert-prompt` | Crée, modifie, ou copie un prompt livré (`fromBuiltIn` ou `fromCatalog`) |
+| `upsert-prompt` | Crée, modifie, ou copie un prompt livré (`fromBuiltIn`, `fromCatalog` ou `fromMotion`) |
 | `delete-prompt` | Supprime un prompt de l'utilisateur ; les intégrés sont intouchables |
 | `install-starter-template` | Copie une ressource de départ dans les modèles de l'utilisateur |
 | `view-screen` · lecture | Ce que l'utilisateur regarde |
@@ -234,8 +236,9 @@ préférence.
 
 ## La bibliothèque de ressources
 
-Quatrième écran, `/library`, avec sept sections dans **une seule route** : Créer,
-Bibliothèque, Prompts, Modèles, Ressources de départ, Kits de marque, Journal. Le Principe V limite l'interface à trois
+Quatrième écran, `/library`, avec huit sections dans **une seule route** : Créer,
+Bibliothèque, Prompts, Mouvements, Modèles, Ressources de départ, Kits de marque,
+Journal. Le Principe V limite l'interface à trois
 routes et exige une justification explicite au-delà : celle-ci est la demande de
 l'utilisateur d'un espace où ranger son matériel de création.
 
@@ -296,6 +299,61 @@ L'écran **Créer** n'appelle aucun modèle d'image : il assemble modèle + kit 
 demande en une consigne, et la passe à l'agent par `sendToAgentChat()`. C'est l'agent,
 avec ses outils HyperFrames ou Remotion, qui produit le fichier — ou qui dit qu'il ne
 peut pas.
+
+## La grammaire de mouvement
+
+`shared/motion-grammar/` porte **121 recettes de motion design déconstruites** : un
+découpage timecodé, une palette, une recette Remotion, une recette HyperFrames, un
+prompt de reconstruction et des points de comparaison de frames pour chacune. Généré
+par `tools/motion-grammar/build.mjs` depuis la bibliothèque d'analyse de l'utilisateur
+(voir le README de ce dossier).
+
+C'est la section **Mouvements** de la bibliothèque, et le matériau de deux actions.
+
+### Le lien avec le récit, et c'est tout l'intérêt
+
+Les recettes se trient sur deux axes, et il ne faut pas les confondre :
+
+| Axe | Question | Où il vit |
+| --- | --- | --- |
+| **Famille** | de quoi le plan est fait ? | `types.ts` — 9 valeurs |
+| **Étape du voyage** | à quoi le plan sert ? | `narrative-map.ts` — les 12 étapes |
+
+`NARRATIVE_MOTION_MAP` est la pièce qui manquait entre `get-narrative-brief` et les deux
+ponts : elle dit, pour chaque étape, **ce que l'étape demande au mouvement**, quelles
+familles la servent et quelles primitives employer. Sans elle, un brief en prose
+laissait l'agent choisir au hasard dans 121 recettes.
+
+Jointure par le numéro d'étape, comme partout : 1 à 12, la même clé que
+`shared/hero-journey.ts` et que les tables.
+
+### Six primitives, pas cent vingt-une
+
+`primitives.ts` porte le vocabulaire : entrée premium, tracé et déplacement de point,
+caméra 2D, appareil en 2,5D, collage papier, graphiques et compteurs. Les 121 recettes
+les recombinent. **Les lire avant d'ouvrir une recette** : un agent qui connaît les six
+compose sans recette, et une recette lui sert alors de calibrage.
+
+`ENGINE_PORTING` dit comment passer d'un moteur à l'autre ; `DETERMINISM_RULES` porte
+les trois interdits — aucune horloge réelle, aucun hasard non graine, aucune animation
+autonome. Ils ne sont pas une préférence de style : sans eux, aucune comparaison de
+frames n'est possible, donc aucune vérification.
+
+### Quatre règles pour l'agent
+
+- **Ne jamais importer `shared/motion-grammar/index.ts` depuis `app/`.** Même règle que
+  le catalogue de prompts : il pèse près de 500 Ko. L'interface n'importe que `types.ts`.
+- **L'impact est réservé à l'étape 8.** Le ressort amorti et le dépassement ne sont
+  justifiés qu'au climax. Les employer partout vole au climax ce qui le distingue.
+- **Une étape sans note ne reçoit aucune proposition.** `suggest-motion` l'annonce comme
+  vide. Proposer un mouvement pour une intention que l'utilisateur n'a pas écrite, c'est
+  inventer la scène — ce que ce projet ne fait pas.
+- **Les corps de recette ne sont pas traduits**, seuls les résumés le sont. Le dire
+  plutôt que traduire à sa place, comme pour le catalogue.
+
+Une recette intégrée ne se modifie pas : `upsert-prompt --fromMotion <clé>` en copie le
+prompt dans les prompts de l'utilisateur. Cinq des 121 n'ont pas de prompt rédigé, et
+l'action le dit plutôt que de créer un prompt vide.
 
 ## Le référentiel de la méthode n'est pas en base
 

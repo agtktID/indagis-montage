@@ -81,6 +81,10 @@ que vous avez déjà filmé ; il n'invente pas de scènes.
 - **Un brief de composition** — un bouton par acte, en haut de la carte, qui transforme
   vos notes, vos intensités et vos timecodes en consigne pour l'agent. C'est ce qui rend
   possible « fais-moi un teaser de l'acte III depuis ma carte ».
+- **Une grammaire de mouvement** — 121 chorégraphies déconstruites, avec leur découpage
+  timecodé, leur palette et leur recette pour les deux moteurs. Elles se trient **par
+  étape du voyage** : la question posée n'est pas « montre-moi les transitions » mais
+  « qu'est-ce qui sert mon climax ? ».
 - **Un agent** qui travaille sur les mêmes données que vous, par le chat plein écran ou
   par le panneau de la barre latérale.
 
@@ -227,6 +231,33 @@ titre d'origine restant affiché sous chaque fiche.
 Voir [`CREDITS.md`](CREDITS.md) pour l'attribution, et
 [`tools/prompt-catalog/README.md`](tools/prompt-catalog/README.md) pour reconstruire
 le catalogue depuis une autre source.
+
+## La grammaire de mouvement
+
+La section **Mouvements** de la bibliothèque porte **121 recettes de motion design
+déconstruites** : pour chacune, un découpage timecodé, la palette, les calques, la
+recette Remotion, la recette HyperFrames et un prompt de reconstruction.
+
+Ce qui la distingue d'une banque d'effets : elle est **indexée par fonction
+narrative**. Chacune des 12 étapes du voyage dit ce qu'elle demande au mouvement, et
+quelles familles la servent.
+
+> **Étape 8, le climax** — « Le seul endroit où un impact est mérité : c'est l'unique
+> étape où le ressort amorti et le dépassement sont justifiés par le récit. Les employer
+> ailleurs vole au climax ce qui le distingue. »
+
+Sous les 121 recettes il n'y a que **six primitives** — entrée premium, tracé et
+déplacement de point, caméra 2D, appareil en 2,5D, collage papier, graphiques et
+compteurs — plus la table qui dit comment passer d'un moteur à l'autre. Les connaître
+permet de composer sans recette ; une recette sert alors de calibrage.
+
+Et une étape que vous n'avez pas encore écrite ne reçoit **aucune** proposition. Elle est
+annoncée comme vide. Proposer un mouvement pour une intention qui n'existe pas, ce serait
+inventer la scène à votre place.
+
+Voir [`CREDITS.md`](CREDITS.md) pour la provenance — l'analyse est publiée, jamais les
+médias analysés — et
+[`tools/motion-grammar/README.md`](tools/motion-grammar/README.md) pour la reconstruire.
 
 ## Vérifier
 

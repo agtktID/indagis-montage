@@ -31,9 +31,13 @@ dist-ssr
 .tmp/
 
 # La base locale et les fichiers de travail. Volontairement large — mais cette
-# largeur avait avalé shared/prompt-catalog/data/, d'où la réintégration juste après.
+# largeur avale les catalogues générés, d'où les réintégrations juste après. Elle l'a
+# fait deux fois : prompt-catalog, puis motion-grammar. Toute nouvelle `shared/*/data/`
+# doit être réintégrée ici, sinon la CI échoue sur un module introuvable alors que
+# tout passe en local — le fichier existe, il n'est simplement jamais poussé.
 **/data/
 !shared/prompt-catalog/data/
+!shared/motion-grammar/data/
 data/pglite/
 data/uploads/
 data/settings.json

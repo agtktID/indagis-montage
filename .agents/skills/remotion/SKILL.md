@@ -55,6 +55,7 @@ correspondance. En Remotion, elles se traduisent ainsi :
 - `intensity` → l'amplitude des interpolations (`interpolate`, `spring`)
 - la couleur d'acte → le thème du segment
 - les marqueurs en ordre narratif → l'ordre des `<Sequence>`, pas leur timecode d'origine
+- `suggest-motion` → **quelle animation** sert chaque étape, avec ses durées mesurées
 
 ## Règles Remotion à respecter
 
@@ -70,10 +71,36 @@ correspondance. En Remotion, elles se traduisent ainsi :
 ## Comment procéder
 
 1. `get-story-map` et `list-markers` (ordre narratif) — les vraies données.
+1bis. `suggest-motion` pour le geste visuel de chaque étape, au lieu de choisir les
+   animations au hasard. Voir la section dédiée plus bas.
 2. Proposer la structure en séquences **avant** d'écrire le code, et la faire valider.
 3. Écrire la composition, commentée, en français comme le reste du projet.
 4. Rendre avec `render`, après avoir lu l'identifiant exact dans `compositions`.
    Un rendu prend plusieurs minutes : prévenir plutôt que laisser attendre en silence.
+
+## La grammaire de mouvement : ne pas composer à l'aveugle
+
+Avant d'écrire la composition, appeler **`suggest-motion --videoId <id> --scope <acte>`**.
+Elle renvoie, étape par étape, ce que l'étape demande au mouvement, les primitives à
+employer, et des recettes avec leurs durées et leurs easings mesurés — directement
+traduisibles en `interpolate` et en `spring`.
+
+Sans elle, le choix des animations est arbitraire. Avec elle, il est motivé par le récit.
+
+- **`spring` est réservé à l'étape 8.** Le ressort amorti et le dépassement n'y sont
+  justifiés qu'au climax ; ailleurs, préférer `interpolate` avec
+  `Easing.out(Easing.cubic)` sur 12–18 images. Mettre un ressort partout vole au climax
+  ce qui le distingue.
+- **Une recette donne un calibrage, pas un contenu.** Ses durées, ses décalages en images
+  et son ordre de calques sont des mesures réutilisables ; le sujet, les textes et les
+  images viennent de la carte de l'utilisateur et de ses ressources autorisées.
+- `list-motion-recipes --engine remotion --step 8` liste ce qui sert le climax ;
+  `--search <titre>` renvoie le corps complet d'une recette, que `suggest-motion` omet
+  pour rester lisible.
+
+Le vocabulaire sous les 121 recettes tient en **six primitives** — entrée premium, tracé
+et déplacement de point, caméra 2D, appareil en 2,5D, collage papier, graphiques et
+compteurs. Les connaître permet de composer sans recette.
 
 ## À ne pas faire
 
@@ -81,3 +108,4 @@ correspondance. En Remotion, elles se traduisent ainsi :
 - Ne pas créer un projet Remotion sans avoir montré les conditions de licence.
 - Ne pas inventer de scènes absentes de la carte.
 - Ne pas mélanger l'ordre chronologique et l'ordre narratif.
+- Ne pas employer `spring` ailleurs qu'à l'étape 8.
