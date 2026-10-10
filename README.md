@@ -265,7 +265,7 @@ médias analysés — et
 bash scripts/verifier.sh
 ```
 
-Vingt-quatre critères, chacun avec la commande qui le démontre : les quatre portes, les
+Vingt-huit critères, chacun avec la commande qui le démontre : les quatre portes, les
 frontières d'architecture, le parcours complet d'un monteur contre une vraie base, et la
 bibliothèque. Le script finit par ce qui reste **non prouvé** — il ne prétend pas que
 tout est vérifié quand ça ne l'est pas.
@@ -274,6 +274,11 @@ L'un de ces critères vérifie qu'**aucune action métier n'est dépourvue de bo
 été ajouté après coup : `get-narrative-brief` a vécu une PR entière sans point d'entrée,
 marchait en ligne de commande, et échouait en 405 dans un navigateur. Rien ne le voyait,
 puisqu'il n'y avait rien à cliquer.
+
+Les actions sont aussi testées **une par une**, contre une base PGlite en mémoire montée
+depuis les vraies migrations. Ces tests-là ne refont pas le parcours : ils couvrent ce
+qu'une modification garde quand on ne le lui dit pas, ce qu'elle refuse, et le fait qu'un
+compte ne voie jamais les lignes d'un autre.
 
 Les portes seules, si c'est tout ce que vous voulez :
 
