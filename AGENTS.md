@@ -355,6 +355,42 @@ Une recette intégrée ne se modifie pas : `upsert-prompt --fromMotion <clé>` e
 prompt dans les prompts de l'utilisateur. Cinq des 121 n'ont pas de prompt rédigé, et
 l'action le dit plutôt que de créer un prompt vide.
 
+## Tester une action
+
+`tests/helpers/action-harness.ts` monte une base PGlite **en mémoire** depuis
+`server/db/migrations.ts` — les vraies migrations, pas un schéma recopié à la main qui
+dériverait en silence.
+
+```ts
+beforeAll(async () => { await setupActionTests(); }, 60_000);
+
+const createVideo = await loadAction("create-video");
+const result = await asTestUser(() => createVideo({ title: "Essai" }));
+```
+
+Quatre choses à savoir :
+
+- **`DATABASE_URL=pglite:memory`** est posé par le harnais. Le noyau ne reconnaît une
+  base de test isolée que sous vitest ; la base de travail de l'utilisateur n'est
+  jamais touchée.
+- **La validation du schéma s'exécute dans `run`**, pas dans les habillages HTTP/CLI.
+  Un argument hors contrat est rejeté avant la première ligne de la fonction métier —
+  on peut donc tester les refus de validation depuis un test unitaire.
+- **Une écriture sans contexte de requête échoue**, et c'est voulu. `asUser(email, fn)`
+  fournit la session ; `asTestUser` prend l'utilisateur par défaut. Deux comptes
+  existent (`TEST_USER`, `OTHER_USER`) pour prouver l'isolation.
+- **PGlite met six à sept secondes à démarrer.** Le harnais s'installe une fois par
+  fichier et les tests partagent la base : chacun crée donc ses propres lignes au lieu
+  de supposer une base vide.
+
+Ce que ces tests couvrent, et que le vérificateur ne couvre pas : la logique de
+résolution. Les replis d'`upsert-*`, les refus, le filtrage par propriétaire. Le
+vérificateur prouve que le parcours marche ; ces tests disent *pourquoi* il casse.
+
+**Écrire le test avant le correctif.** Les deux tests d'`upsert-prompt` ont été vérifiés
+en réintroduisant le bug de la PR #22 : ils passent au rouge, puis au vert une fois le
+repli rétabli. Un test qui n'a jamais échoué ne protège rien de démontré.
+
 ## Le référentiel de la méthode n'est pas en base
 
 Les 12 étapes, les 3 actes, les 5 questions de préparation, les 5 symptômes et les 4
