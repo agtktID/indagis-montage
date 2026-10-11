@@ -13,9 +13,9 @@
 **L'agent que reçoit un utilisateur qui installe Indagis Studio ne connaît pas la
 méthode du produit.**
 
-Les cinq skills qui portent le voyage du héros — `voyage-du-heros`,
-`diagnostic-timeline`, `roasting`, `hyperframes`, `remotion` — vivent dans
-`.agents/skills/`. La documentation du framework dit que ce dossier n'alimente que le
+Les sept skills du projet — `voyage-du-heros`, `diagnostic-timeline`, `roasting`,
+`hyperframes`, `remotion`, et depuis l'audit `ingestion-et-droits` et
+`direction-mouvement` — vivent dans `.agents/skills/`. La documentation du framework dit que ce dossier n'alimente que le
 mode développement ; en mode application, l'agent ne voit que les *resource skills*.
 L'auteur du projet ne s'en aperçoit pas : sur sa machine, il travaille en mode
 développement, où tout est chargé.
