@@ -230,7 +230,7 @@ bash scripts/verifier.sh
 
 Vingt-huit critères, chacun avec la commande qui le démontre, et une section finale sur ce
 qui reste **non prouvé** — le script ne prétend pas que tout est vérifié quand ça ne l'est
-pas. S'y ajoutent **229 tests**, dont le contrat d'écriture de chaque action contre une
+pas. S'y ajoutent **267 tests**, dont le contrat d'écriture de chaque action contre une
 vraie base.
 
 ## Documentation

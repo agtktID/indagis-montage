@@ -1,10 +1,13 @@
 ---
 name: remotion
-description: >-
-  Écrire une composition vidéo Remotion (vidéo en React) à partir d'une carte narrative
-  Studio. À lire quand l'utilisateur travaille en React pour la vidéo, ou demande du code
-  de composition plutôt qu'un rendu. Remotion n'a pas de serveur MCP : l'agent produit du
-  code, il ne rend rien.
+description: >
+  Écrire une composition vidéo Remotion (vidéo en React) depuis une carte narrative Studio. À
+  lire quand l'utilisateur travaille en React pour la vidéo, demande du code de composition,
+  ou veut voir sa composition en direct avant de rendre. Déclenche-toi aussi sur « en React »,
+  « Remotion », « je veux le code », « ouvre le studio ». Un pont local expose dix outils sous
+  mcp__remotion__* dont render et studio_start : vérifier avec tool-search s'ils sont dans le
+  registre plutôt que de supposer qu'ils n'y sont pas. Remotion n'est pas open source —
+  montrer license_notice avant de créer un premier projet.
 ---
 
 # Remotion depuis la carte narrative

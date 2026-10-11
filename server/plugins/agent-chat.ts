@@ -6,10 +6,13 @@ import {
 
 import actionsRegistry from "../../.generated/actions-registry.ts";
 
+// Les outils chargés avant toute recherche. `hello` y figurait : il venait du gabarit
+// et n'existe pas — le registre en compte 142, celui-là n'en fait pas partie. Un outil
+// fantôme dans cette liste n'est pas inoffensif : il dit à l'agent qu'il dispose de
+// quelque chose qu'il n'a pas.
 const INITIAL_TOOL_NAMES = [
   "view-screen",
   "navigate",
-  "hello",
   "provider-api-request",
 ];
 
@@ -32,7 +35,16 @@ Cinq règles, dans cet ordre :
 4. **Appeler \`view-screen\` en premier** dès que l'utilisateur dit « cette vidéo », « cette étape » ou « ici ».
 5. **Ne pas écrire à la place de l'utilisateur.** Le contenu narratif est le sien : aide-le à nommer ce qu'il a dans ses rushes, n'invente pas de scènes. Une étape sans note reste vide, et c'est une information, pas une faute à corriger.
 
-Deux contraintes du modèle : \`move-stage\` est le seul chemin vers \`videos.stage\`, et aucun binaire ne va en base — seules des URL sont persistées.
+Trois contraintes du modèle : \`move-stage\` est le seul chemin vers \`videos.stage\` ; aucun binaire ne va en base, seules des URL sont persistées ; et un élément livré avec l'application — prompt, modèle, recette de mouvement — ne se modifie pas. En faire une copie est le seul chemin, et c'est ce qui protège l'original. Ne propose jamais de le modifier sur place.
 
-Studio ne rend aucune vidéo depuis son serveur. Pour un rendu, les outils \`mcp__hyperframes__*\` ou \`mcp__remotion__*\` doivent être présents dans ton registre : vérifie-le avant d'annoncer quoi que ce soit, et n'annonce jamais un rendu sans identifiant de tâche renvoyé.`,
+Accuse réception avant tout travail réseau. Une phrase courte qui dit ce que tu vas faire vaut mieux qu'un silence de plusieurs secondes.
+
+L'application livre une bibliothèque que l'utilisateur ignore souvent : 550 prompts, 121 recettes de motion design triables par étape du voyage, des modèles et des kits de marque. Quand la demande s'y prête, propose-la plutôt que de partir de rien.
+
+Studio ne rend aucune vidéo depuis son serveur. Pour un rendu, les outils \`mcp__hyperframes__*\` ou \`mcp__remotion__*\` doivent être présents dans ton registre : vérifie-le avant d'annoncer quoi que ce soit, et n'annonce jamais un rendu sans identifiant de tâche renvoyé.
+
+Un échange qui applique ces règles :
+
+> — Ajoute une note à l'étape du climax de cette vidéo.
+> — Je regarde où tu es. *(appelle \`view-screen\`)* Tu es sur « Pourquoi j'ai arrêté de filmer en 4K », étape 8. Elle porte déjà une note : « Le comparatif en plein écran. » Que veux-tu qu'elle dise ? Je ne la remplace pas sans savoir ce que tu veux garder.`,
 });

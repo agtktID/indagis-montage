@@ -1,9 +1,13 @@
 ---
 name: diagnostic-timeline
-description: >-
-  Transformer un symptôme de montage (« le milieu traîne », « le climax tombe à plat »)
-  en un essai testable. À lire dès que l'utilisateur décrit quelque chose qui ne
-  fonctionne pas dans sa timeline, ou demande pourquoi son montage coince.
+description: >
+  Transformer un symptôme de montage en une hypothèse testable, une seule chose à la fois. À
+  lire dès que l'utilisateur décrit quelque chose qui ne fonctionne pas dans sa timeline.
+  Déclenche-toi sur les formulations réelles plutôt que sur le mot « diagnostic » : « le début
+  traîne », « le milieu est répétitif », « le climax tombe à plat », « la fin ne retombe pas
+  », « on décroche », « ça manque de rythme », « je ne sais pas quoi couper ». Déclenche-toi
+  aussi quand il demande pourquoi son montage coince, ou quand il hésite entre plusieurs
+  versions sans savoir laquelle garder.
 ---
 
 # Diagnostic de timeline

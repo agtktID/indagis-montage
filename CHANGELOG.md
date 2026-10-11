@@ -3,6 +3,21 @@
 Les changements visibles par l'utilisateur, les plus récents en premier.
 Ce projet suit la [gestion sémantique de version](https://semver.org/lang/fr/).
 
+## Non publié
+
+- **Deux skills rejoignent le projet** : `ingestion-et-droits` exige la provenance et la
+  licence d'une ressource avant qu'elle entre dans la bibliothèque ; `direction-mouvement`
+  pose le système visuel avant de composer un plan animé. Adaptées du workflow vidéo de
+  l'auteur, réécrites au périmètre de Studio qui n'exécute aucune commande.
+- **Une skill mentait à l'agent.** La description de `remotion` affirmait que Remotion
+  n'avait pas de serveur MCP, alors que le pont existe et expose dix outils. L'agent
+  refusait donc un rendu qu'il pouvait faire. Les sept descriptions sont réécrites
+  d'après la documentation Anthropic, qui demande des déclencheurs explicites.
+- **Un outil fantôme retiré du prompt système.** `hello` figurait parmi les outils
+  initiaux sans exister dans le registre.
+- **38 tests de plus** sur le format des skills, dont un garde qui interdit à une skill
+  de nier un pont déclaré — vérifié rouge en réintroduisant le bug d'origine.
+
 ## 0.1.0 — 11 octobre 2026
 
 Première version publiable. **Alpha** : le produit fait ce qu'il annonce et ses

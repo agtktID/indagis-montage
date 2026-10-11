@@ -1,8 +1,13 @@
 ---
 name: roasting
-description: >-
-  Transformer un retour de spectateur en hypothèse testable. À lire dès que l'utilisateur
-  rapporte ce qu'une personne a dit de son montage, ou prépare une séance de retours.
+description: >
+  Transformer un retour de spectateur en hypothèse testable, sans prendre une solution
+  proposée pour un diagnostic. À lire dès que l'utilisateur rapporte ce qu'une personne a dit
+  de son montage, prépare une séance de retours, ou revient d'une projection. Déclenche-toi
+  aussi sur « on m'a dit que », « un ami a trouvé que », « les commentaires disent », « je
+  viens de le montrer à », et quand un retour arrive sous forme de solution (« il faudrait
+  couper le début ») plutôt que d'observation — c'est précisément le cas où cette compétence
+  sert.
 ---
 
 # Roasting — du retour à l'essai
