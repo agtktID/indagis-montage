@@ -1,10 +1,14 @@
 ---
 name: voyage-du-heros
-description: >-
-  La carte des 12 étapes du voyage du héros appliquée au montage vidéo, et les règles de
-  la courbe émotionnelle. À lire dès que l'utilisateur veut structurer un récit, comprendre
-  ce qui manque dans sa carte, ou décider où placer une rupture. Le détail des 12 étapes
-  vit dans references/12-etapes.md — le charger seulement quand une étape précise est en jeu.
+description: >
+  La carte des 12 étapes du voyage du héros appliquée au montage vidéo, et les règles de la
+  courbe émotionnelle. À lire dès que l'utilisateur veut structurer un récit, comprendre ce
+  qui manque dans sa carte, décider où placer une rupture, ou doser l'intensité d'un acte.
+  Déclenche-toi aussi s'il parle de timeline vide, de rushes qu'il ne sait pas ordonner, d'un
+  montage « qui ne raconte rien », ou s'il mentionne simplement « voyage du héros », « les 12
+  étapes », « les 3 actes » ou « la courbe » — même sans nommer la méthode ni demander d'aide
+  explicitement. Le détail des 12 étapes vit dans references/12-etapes.md : le charger
+  seulement quand une étape précise est en jeu.
 ---
 
 # Voyage du héros — la carte

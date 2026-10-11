@@ -1,10 +1,13 @@
 ---
 name: hyperframes
-description: >-
-  Transformer une carte narrative Studio en composition vidéo HyperFrames. À lire quand
-  l'utilisateur veut produire une vidéo, un teaser, un chapitrage animé ou une courbe
-  émotionnelle animée à partir de sa carte. Décrit aussi ce que l'agent peut et ne peut
-  PAS faire ici — le rendu n'a pas lieu dans cette application.
+description: >
+  Transformer une carte narrative Studio en composition vidéo HyperFrames, et dire honnêtement
+  ce qui est possible. À lire quand l'utilisateur veut produire une vidéo, un teaser, un
+  chapitrage animé ou une courbe émotionnelle animée depuis sa carte. Déclenche-toi aussi sur
+  « fais-moi une vidéo », « un teaser de l'acte III », « anime ma courbe », « une intro », «
+  un bout à poster ». Les outils mcp__hyperframes__* doivent être dans le registre : vérifier
+  avec tool-search avant d'annoncer un rendu, et ne jamais en annoncer un sans identifiant de
+  tâche renvoyé.
 ---
 
 # HyperFrames depuis la carte narrative

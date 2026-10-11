@@ -1,11 +1,12 @@
 ---
 name: direction-mouvement
 description: >
-  Poser un système de mouvement cohérent et lisible avant de composer un plan animé.
-  Se déclenche quand l'utilisateur demande des titres, des surimpressions, des
-  transitions, des zooms ou une animation, quand il parle de direction artistique, de
-  rythme, de palette ou de lisibilité, et avant tout brief de composition envoyé à un
-  moteur de rendu.
+  Poser un système de mouvement cohérent et lisible avant de composer un plan animé. Se
+  déclenche quand l'utilisateur demande des titres, des surimpressions, des transitions, des
+  zooms, un générique ou une animation. Déclenche-toi aussi sur « ajoute un titre », « fais
+  une transition », « anime ça », « rends ça plus dynamique », sur toute mention de direction
+  artistique, rythme, palette, typographie ou lisibilité, et avant tout brief de composition
+  envoyé à un moteur de rendu — même quand l'utilisateur demande seulement le rendu.
 ---
 
 # Direction de mouvement

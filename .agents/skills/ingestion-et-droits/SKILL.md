@@ -1,11 +1,13 @@
 ---
 name: ingestion-et-droits
 description: >
-  Exiger la provenance et la licence d'une ressource avant qu'elle entre dans la
-  bibliothèque. Se déclenche quand l'utilisateur ajoute, importe ou catalogue des
-  rushes, images, sons, musiques, polices ou générations, quand il parle de droits,
-  de licence, d'attribution ou d'autorisation, et quand une ressource arrive sans
-  qu'on sache d'où elle vient.
+  Exiger la provenance et la licence d'une ressource avant qu'elle entre dans la bibliothèque.
+  Se déclenche quand l'utilisateur ajoute, importe ou catalogue des rushes, images, sons,
+  musiques, polices ou générations. Déclenche-toi aussi sur « j'ai trouvé cette musique », «
+  j'ai téléchargé », « c'est gratuit non ? », « je peux l'utiliser ? », sur toute mention de
+  droits, licence, attribution, autorisation ou droit à l'image, et chaque fois qu'une
+  ressource arrive sans qu'on sache d'où elle vient — y compris quand l'utilisateur ne pose
+  pas la question.
 ---
 
 # Ingestion et droits
