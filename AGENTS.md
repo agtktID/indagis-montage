@@ -42,10 +42,20 @@ document de référence, BMAD outille son exécution par rôle.
 | **ECC** (`ecc:*`) | 300+ skills : revue de code par langage, TDD, CI/CD, architecture, sécurité | Plugin Claude Code **global**, déjà actif — rien à installer localement |
 | **Superpowers** (`superpowers:*`) | Brainstorming, debugging systématique, TDD, revue de code, git worktrees | Plugin Claude Code **global**, déjà actif |
 | **mattpocock-skills** (`mattpocock-skills:*`) | TDD, prototypage, modélisation de domaine, conception de codebase, revue de code, résolution de conflits | Plugin Claude Code **global**, déjà actif |
+| **shieldcn-badges** | Badges, en-têtes et graphiques de README au style shadcn/ui | Installé dans ce projet ; `skills-lock.json` en fige la version |
 
-Les trois derniers sont installés une fois pour toutes au niveau de l'agent (voir
-`~/Documents/dev-tools/README.md`, section 5) : aucune action d'installation n'est due
-pour ce projet, ils apparaissent directement dans la liste de skills disponibles.
+ECC, Superpowers et mattpocock-skills sont installés une fois pour toutes au niveau de
+l'agent (voir `~/Documents/dev-tools/README.md`, section 5) : aucune action
+d'installation n'est due pour ce projet, ils apparaissent directement dans la liste de
+skills disponibles.
+
+`shieldcn-badges`, lui, est local au projet. Le dossier `.claude/skills/` est ignoré par
+git ; c'est `skills-lock.json` qui porte la source et l'empreinte, et qui rend
+l'installation reproductible :
+
+```bash
+npx skills add jal-co/shieldcn -a claude-code
+```
 
 Quand plusieurs skills se recoupent (ex. `superpowers:systematic-debugging` et un
 `ecc:*-build-resolver` pour la même erreur), privilégier la plus spécifique au langage ou
@@ -107,7 +117,7 @@ données) :
 
 ## Les actions
 
-Quarante-quatre actions métier, plus les deux standard. Toutes définies une seule fois avec
+Quarante-cinq actions métier, plus `view-screen` et `navigate`. Toutes définies une seule fois avec
 `defineAction()` : outil d'agent, hook React, route HTTP, commande CLI et outil MCP/A2A
 d'un même geste. **Aucune route `/api/*` ne double une action**, export CSV compris.
 
@@ -150,6 +160,8 @@ d'un même geste. **Aucune route `/api/*` ne double une action**, export CSV com
 | `duplicate-asset-template` | Copie un modèle dans un kit, sans toucher à l'original |
 | `list-assets` · lecture | La bibliothèque, filtrable, avec compteurs et taxonomie |
 | `upsert-asset` | Ajoute ou modifie une ressource — **URL seulement** |
+| `import-assets` | Importe des fiches depuis un CSV ou un JSON ; `dryRun` d'abord, lignes refusées rendues |
+| `export-assets` · lecture | Sort le catalogue en CSV ou JSON — **inline**, sans stockage externe |
 | `delete-asset` | Retire la fiche ; le fichier d'origine reste |
 | `list-prompts` · lecture | Le catalogue, les prompts du voyage du héros et ceux de l'utilisateur |
 | `upsert-prompt` | Crée, modifie, ou copie un prompt livré (`fromBuiltIn`, `fromCatalog` ou `fromMotion`) |
@@ -299,6 +311,29 @@ L'écran **Créer** n'appelle aucun modèle d'image : il assemble modèle + kit 
 demande en une consigne, et la passe à l'agent par `sendToAgentChat()`. C'est l'agent,
 avec ses outils HyperFrames ou Remotion, qui produit le fichier — ou qui dit qu'il ne
 peut pas.
+
+### Importer et exporter la bibliothèque
+
+`import-assets` et `export-assets` suivent exactement l'idiome d'`import-markers` :
+le format est reconnu tout seul, les lignes incompréhensibles sont **rendues avec leur
+numéro et leur raison**, et `dryRun` montre ce qui serait créé avant d'écrire.
+
+Une valeur de taxonomie inconnue est **refusée**, jamais rangée dans « autre » : ranger
+en silence ferait croire à l'utilisateur que c'est passé.
+
+L'écran offre deux gestes qu'il ne faut pas confondre :
+
+| Geste | Ce qui entre | Ce qui est écrit |
+| --- | --- | --- |
+| **Choisir des fichiers** | les fichiers de l'utilisateur | une fiche par fichier ; nom et type déduits de l'extension, état `reference` |
+| **Importer un CSV/JSON** | un catalogue | les fiches qu'il décrit |
+
+**Aucun fichier n'est téléversé.** Le framework sait le faire (`uploadFile()`, voir
+`node_modules/@agent-native/core/docs/content/file-uploads.mdx`) mais exige un
+fournisseur configuré — S3, R2 ou Builder.io — et sans fournisseur il refuse, par
+construction : « Binary data is never persisted in SQL ». Choisir des fichiers les
+**catalogue** donc, et le lien reste à renseigner. L'interface le dit, plutôt que de
+le laisser découvrir.
 
 ## La grammaire de mouvement
 
