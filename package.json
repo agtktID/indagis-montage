@@ -1,6 +1,7 @@
 {
   "name": "indagis-studio",
   "displayName": "Indagis Studio",
+  "version": "0.1.0",
   "private": true,
   "description": "Atelier de structuration narrative pour le montage vidéo, fondé sur le voyage du héros.",
   "type": "module",
@@ -108,6 +109,13 @@
     "node": ">=22.22.0"
   },
   "packageManager": "pnpm@10.29.1",
+  "pnpm": {
+    "overrides": {
+      "pdfjs-dist": ">=6.2.108",
+      "@anthropic-ai/sdk": ">=0.91.1",
+      "postcss-selector-parser": ">=7.1.6"
+    }
+  },
   "agent-native": {
     "scaffold": {
       "template": "chat",

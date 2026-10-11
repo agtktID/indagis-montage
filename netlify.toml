@@ -4,8 +4,16 @@ publish = "dist"
 functions = ".netlify/functions-internal"
 
 [build.environment]
-GA_MEASUREMENT_ID = "G-ESF7FYXGN9"
-GTM_CONTAINER_ID = "GTM-N3WSTXZ"
+# Pas de GA_MEASUREMENT_ID ni de GTM_CONTAINER_ID ici, et c'est délibéré.
+#
+# Le gabarit en livrait deux, pointant vers une propriété qui n'appartient pas à ce
+# projet : tout déploiement aurait envoyé les statistiques de ses visiteurs à un
+# tiers. Pour une application dont la promesse tient en « aucune donnée qui part
+# ailleurs », c'était intenable — y compris sur le chemin déployé, que personne ne
+# lit avant de cliquer.
+#
+# Qui veut mesurer son propre trafic pose sa variable dans l'interface Netlify, là
+# où elle n'est pas publiée dans un dépôt public.
 NITRO_PRESET = "netlify"
 NPM_CONFIG_PRODUCTION = "false"
 

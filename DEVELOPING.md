@@ -1,4 +1,4 @@
-# indagis-studio-scaffold — Development Guide
+# Indagis Studio — guide de développement
 
 This guide is for development-mode agents editing this app's source code. For app operations and tools, see AGENTS.md.
 

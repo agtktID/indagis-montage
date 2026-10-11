@@ -237,6 +237,7 @@ vraie base.
 
 | Document | Ce qu'il contient |
 | --- | --- |
+| [`CHANGELOG.md`](CHANGELOG.md) | Ce que chaque version apporte — la 0.1.0 est la première |
 | [`docs/ETAT-DU-PROJET.md`](docs/ETAT-DU-PROJET.md) | Ce qui est fait, ce qui reste, et la commande qui reprouve chaque ligne |
 | [`AGENTS.md`](AGENTS.md) | Le contrat technique, pour les agents comme pour les humains |
 | [`CONTRIBUTING.md`](CONTRIBUTING.md) | Les règles du projet et les portes à passer |

@@ -31,6 +31,13 @@ Ce qui est dans le périmètre :
   modifier les données d'un autre compte est une faille.
 - **Les secrets.** Aucune clé, aucun jeton, aucune URL de webhook ne doit se
   retrouver dans le code, les journaux ou la base. Une fuite en est une.
+- **Le silence sortant.** L'application n'émet aucune mesure d'audience. Le
+  gabarit de départ livrait un identifiant Google Analytics et un conteneur Tag
+  Manager dans `netlify.toml`, pointant vers une propriété étrangère au projet :
+  ils ont été retirés. Toute réintroduction d'un identifiant de mesure, d'un DSN
+  de collecte d'erreurs ou d'un enregistrement de session dans un fichier suivi
+  est un défaut à signaler — la promesse « aucune donnée qui part ailleurs » doit
+  valoir aussi sur le chemin déployé, que personne ne relit avant de cliquer.
 
 Hors périmètre : la sécurité des services tiers appelés par l'agent, et le contenu
 produit par les modèles.

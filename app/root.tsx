@@ -36,8 +36,8 @@ import stylesheet from "./global.css?url";
 configureTracking({
   getDefaultProps: (_name, properties) => ({
     ...properties,
-    app: "indagis-studio-scaffold",
-    template: "chat",
+    app: "indagis-studio",
+    template: "studio",
   }),
 });
 
