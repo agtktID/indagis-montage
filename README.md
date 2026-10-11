@@ -6,17 +6,17 @@
 </p>
 
 <p align="left">
-  <a href="https://github.com/agtktID/indagisdisign/actions/workflows/ci.yml"><picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://shieldcn.dev/github/ci/agtktID/indagisdisign.svg?variant=secondary&mode=dark" />
-    <img alt="État de l'intégration continue" src="https://shieldcn.dev/github/ci/agtktID/indagisdisign.svg?variant=secondary&mode=light" />
+  <a href="https://github.com/agtktID/indagis-montage/actions/workflows/ci.yml"><picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://shieldcn.dev/github/ci/agtktID/indagis-montage.svg?variant=secondary&mode=dark" />
+    <img alt="État de l'intégration continue" src="https://shieldcn.dev/github/ci/agtktID/indagis-montage.svg?variant=secondary&mode=light" />
   </picture></a>
   <a href="LICENSE"><picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://shieldcn.dev/github/license/agtktID/indagisdisign.svg?variant=secondary&mode=dark" />
-    <img alt="Licence MIT" src="https://shieldcn.dev/github/license/agtktID/indagisdisign.svg?variant=secondary&mode=light" />
+    <source media="(prefers-color-scheme: dark)" srcset="https://shieldcn.dev/github/license/agtktID/indagis-montage.svg?variant=secondary&mode=dark" />
+    <img alt="Licence MIT" src="https://shieldcn.dev/github/license/agtktID/indagis-montage.svg?variant=secondary&mode=light" />
   </picture></a>
-  <a href="https://github.com/agtktID/indagisdisign/commits"><picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://shieldcn.dev/github/last-commit/agtktID/indagisdisign.svg?variant=secondary&mode=dark" />
-    <img alt="Dernier commit" src="https://shieldcn.dev/github/last-commit/agtktID/indagisdisign.svg?variant=secondary&mode=light" />
+  <a href="https://github.com/agtktID/indagis-montage/commits"><picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://shieldcn.dev/github/last-commit/agtktID/indagis-montage.svg?variant=secondary&mode=dark" />
+    <img alt="Dernier commit" src="https://shieldcn.dev/github/last-commit/agtktID/indagis-montage.svg?variant=secondary&mode=light" />
   </picture></a>
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="https://shieldcn.dev/badge/donn%C3%A9es-100%25%20locales-green.svg?variant=secondary&logo=false&mode=dark" />
@@ -77,8 +77,8 @@ vous avez déjà filmé.
 Il faut **Node.js 22.22 ou plus** et **pnpm**.
 
 ```bash
-git clone https://github.com/agtktID/indagisdisign.git
-cd indagisdisign
+git clone https://github.com/agtktID/indagis-montage.git
+cd indagis-montage
 corepack enable
 pnpm install
 pnpm dev

@@ -141,7 +141,7 @@ tenu. Ce qui a débloqué, c'est d'arrêter de raisonner sur les fichiers et de 
 ### 3. Huit alertes de dépendances, dont quatre hautes
 
 **Problème** : plus aucune critique, et quatre de moins qu'au relevé précédent. Restent,
-au 7 octobre 2026 — `gh api repos/agtktID/indagisdisign/dependabot/alerts` :
+au 7 octobre 2026 — `gh api repos/agtktID/indagis-montage/dependabot/alerts` :
 
 | Gravité | Paquet |
 | --- | --- |

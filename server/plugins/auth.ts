@@ -23,7 +23,7 @@ export default createAuthPlugin({
   workspaceAppPublicPaths: ["/"],
   marketing: {
     appName: "Indagis Studio",
-    learnMoreUrl: "https://github.com/agtktID/indagisdisign",
+    learnMoreUrl: "https://github.com/agtktID/indagis-montage",
     tagline:
       "L'atelier qui vous dit ce qui manque à votre histoire, avant que le montage ne le révèle trop tard.",
     description:
