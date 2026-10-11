@@ -179,6 +179,19 @@ d'un même geste. **Aucune route `/api/*` ne double une action**, export CSV com
 | `roasting` | un retour de spectateur arrive |
 | `hyperframes` | produire une vidéo ou un teaser depuis la carte narrative |
 | `remotion` | écrire une composition vidéo en React depuis la carte narrative |
+| `ingestion-et-droits` | une ressource entre dans la bibliothèque, ou ses droits sont en jeu |
+| `direction-mouvement` | poser le système visuel avant de composer un plan animé |
+
+Les deux dernières sont adaptées du workflow vidéo de l'auteur. Leurs versions
+d'origine pilotaient des scripts (`media_inventory.py`, `ffprobe`, FFmpeg) : **Studio
+n'exécute aucune commande**, seule la discipline de jugement a été reprise. Les
+réécrire en procédures d'exécution ferait croire à l'agent qu'il peut ce qu'il ne peut
+pas.
+
+**Ces sept skills ne servent aujourd'hui que l'agent de développement.** Le framework
+distingue Code Mode, qui charge `.agents/skills/`, et App Mode, qui ne voit que les
+*resource skills* stockées en base. Un utilisateur qui installe l'application n'a donc
+accès à aucune d'elles — c'est l'objet de `specs/002-skills-app-mode/`.
 
 Les skills du framework (`actions`, `storing-data`, `sharing`, `real-time-sync`,
 `shadcn-ui`, `frontend-design`, `security`, `portability`…) couvrent le reste — ne pas
