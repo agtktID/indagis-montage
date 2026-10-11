@@ -25,6 +25,16 @@ overrides:
   # demande "^1.2.1" et 1.2.2 est dans la plage : aucun risque de rupture.
   # Chemin de build uniquement, jamais livré au navigateur (absent de .output).
   source-map-js: "1.2.2"
+
+  # Trois alertes transitives, remontées par le framework. Elles vivaient un temps dans
+  # package.json : elles fonctionnaient, mais un mainteneur qui lit ce fichier en aurait
+  # vu quarante-cinq et raté celles-là. Un seul endroit pour les overrides.
+  #
+  # Restent xlsx et sprintf-js, sans correctif publié en amont — aucune n'est importée
+  # par le code du projet.
+  pdfjs-dist: ">=6.2.108" # exécution de JavaScript à l'ouverture d'un PDF
+  "@anthropic-ai/sdk": ">=0.91.1" # permissions de fichier trop ouvertes
+  postcss-selector-parser: ">=7.1.6" # complexité quadratique, épuisement CPU
   "@tiptap/starter-kit": "3.31.4"
   "@tiptap/react": "3.31.4"
   "@tiptap/pm": "3.31.4"

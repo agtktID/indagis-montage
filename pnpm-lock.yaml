@@ -5,9 +5,54 @@ settings:
   excludeLinksFromLockfile: false
 
 overrides:
+  source-map-js: 1.2.2
   pdfjs-dist: '>=6.2.108'
   '@anthropic-ai/sdk': '>=0.91.1'
   postcss-selector-parser: '>=7.1.6'
+  '@tiptap/starter-kit': 3.31.4
+  '@tiptap/react': 3.31.4
+  '@tiptap/pm': 3.31.4
+  '@tiptap/extensions': 3.31.4
+  '@tiptap/extension-underline': 3.31.4
+  '@tiptap/extension-text-style': 3.31.4
+  '@tiptap/extension-text': 3.31.4
+  '@tiptap/extension-task-list': 3.31.4
+  '@tiptap/extension-task-item': 3.31.4
+  '@tiptap/extension-table-row': 3.31.4
+  '@tiptap/extension-table-header': 3.31.4
+  '@tiptap/extension-table-cell': 3.31.4
+  '@tiptap/extension-table': 3.31.4
+  '@tiptap/extension-strike': 3.31.4
+  '@tiptap/extension-placeholder': 3.31.4
+  '@tiptap/extension-paragraph': 3.31.4
+  '@tiptap/extension-ordered-list': 3.31.4
+  '@tiptap/extension-list-keymap': 3.31.4
+  '@tiptap/extension-list-item': 3.31.4
+  '@tiptap/extension-list': 3.31.4
+  '@tiptap/extension-link': 3.31.4
+  '@tiptap/extension-italic': 3.31.4
+  '@tiptap/extension-image': 3.31.4
+  '@tiptap/extension-horizontal-rule': 3.31.4
+  '@tiptap/extension-heading': 3.31.4
+  '@tiptap/extension-hard-break': 3.31.4
+  '@tiptap/extension-gapcursor': 3.31.4
+  '@tiptap/extension-floating-menu': 3.31.4
+  '@tiptap/extension-dropcursor': 3.31.4
+  '@tiptap/extension-document': 3.31.4
+  '@tiptap/extension-color': 3.31.4
+  '@tiptap/extension-collaboration-caret': 3.31.4
+  '@tiptap/extension-collaboration': 3.31.4
+  '@tiptap/extension-code-block-lowlight': 3.31.4
+  '@tiptap/extension-code-block': 3.31.4
+  '@tiptap/extension-code': 3.31.4
+  '@tiptap/extension-bullet-list': 3.31.4
+  '@tiptap/extension-bubble-menu': 3.31.4
+  '@tiptap/extension-bold': 3.31.4
+  '@tiptap/extension-blockquote': 3.31.4
+  '@tiptap/core': 3.31.4
+  nf3: 0.3.17
+  '@assistant-ui/tap': ^0.5.14
+  '@assistant-ui/store': '>=0.2.9 <0.2.14'
 
 packageExtensionsChecksum: sha256-YybZdidAA15/x6R19t0W3iqnnd2bDOSW/FrgFtnFwiM=
 
@@ -574,8 +619,8 @@ packages:
   '@assistant-ui/core@0.1.17':
     resolution: {integrity: sha512-IWIP98UVQ9W+oF0yz8XqFRtaX8HtozWVUWt6D/BSV6cyKwLfJ8niHtLG74bSnllTnGcreU2El3GR/tIodR1XuA==}
     peerDependencies:
-      '@assistant-ui/store': ^0.2.9
-      '@assistant-ui/tap': ^0.5.10
+      '@assistant-ui/store': '>=0.2.9 <0.2.14'
+      '@assistant-ui/tap': ^0.5.14
       '@types/react': '*'
       assistant-cloud: ^0.1.27
       react: ^18 || ^19
@@ -6431,7 +6476,7 @@ packages:
   tiptap-markdown@0.9.0:
     resolution: {integrity: sha512-dKLQ9iiuGNgrlGVjrNauF/UBzWu4LYOx5pkD0jNkmQt/GOwfCJsBuzZTsf1jZ204ANHOm572mZ9PYvGh1S7tpQ==}
     peerDependencies:
-      '@tiptap/core': ^3.0.1
+      '@tiptap/core': 3.31.4
 
   toidentifier@1.0.1:
     resolution: {integrity: sha512-o5sSPKEkg/DIQNmH43V0/uerLrpzVedkUh8tGNvaeXpfpuwjKenlSox/2O/BTlZUtEe+JG7s5YhEz608PlAHRA==}

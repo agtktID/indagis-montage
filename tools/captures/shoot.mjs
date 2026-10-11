@@ -40,6 +40,18 @@ const [chrome, base = "http://localhost:8080", outDir = "docs/captures", demoVid
 const SOMBRE = process.argv.includes("--sombre");
 const SUFFIXE = SOMBRE ? "-sombre" : "";
 
+/**
+ * Les seuls écrans photographiés aussi en thème sombre.
+ *
+ * Le script en produisait dix-neuf et le README en utilisait dix : neuf fichiers
+ * dormaient dans le dépôt, 3,2 Mo pour rien — dont un `accueil-sombre.png` de 1,7 Mo,
+ * variante sombre d'une page déjà sombre.
+ *
+ * Le README montre la parité des thèmes sur deux écrans, et deux suffisent à la
+ * démontrer. Ajouter un nom ici quand le README en montre un de plus.
+ */
+const AUSSI_EN_SOMBRE = new Set(["carte-narrative", "mouvements"]);
+
 if (!chrome) {
   console.error(
     "Usage : node tools/captures/shoot.mjs <binaire-chromium> [url] [dossier] [id-video] [--sombre]",
@@ -75,10 +87,14 @@ const SHOTS = [
   // seul qui démontre vraiment la taxonomie ; « Brouillons », ouvert par défaut, n'en
   // montre que trois.
   ["bibliotheque", "/library?section=library", "Références"],
-  ["liste-videos", "/videos"],
-  // Le chat plein écran. L'identifiant est fixe et arbitraire : la route crée le fil
-  // s'il n'existe pas, et une valeur figée rend la capture reproductible à l'identique.
-  ["chat", "/chat/8f3a1c92-4d17-4b6e-9a05-71c2e8f4d3b7"],
+  // La liste des vidéos et le chat plein écran ont été retirés d'ici : le README ne les
+  // montre pas, et le script produisait donc deux fichiers que personne ne référençait.
+  //
+  // La liste n'est pas perdue pour autant — le GIF s'ouvre dessus. Le chat, lui, ne vaut
+  // d'être photographié que le jour où un modèle sera connecté : sans cela, l'image
+  // montre un panneau vide, ce qui dessert le produit plus que son absence.
+  //
+  // Les rajouter ici le jour où le README en a besoin, et pas avant.
 ];
 
 if (!demoVideo) {
@@ -168,7 +184,7 @@ await sleep(6000);
 // L'accueil se photographie ici, et nulle part ailleurs : une fois la session ouverte,
 // `/` redirige et l'écran devient inatteignable. C'est pourtant la première chose qu'un
 // visiteur voit de l'application.
-{
+if (!SOMBRE || AUSSI_EN_SOMBRE.has("accueil")) {
   const {
     result: { data },
   } = await send("Page.captureScreenshot", { format: "png" }, sessionId);
@@ -212,33 +228,44 @@ async function waitForContent(timeoutMs = 20_000) {
 }
 
 for (const [name, path, clicLabel, attendreApresClic] of SHOTS) {
+  if (SOMBRE && !AUSSI_EN_SOMBRE.has(name)) continue;
   await send("Page.navigate", { url: base + path }, sessionId);
   await sleep(1500);
   if (!(await waitForContent())) {
     console.warn(`  attention : ${path} n'a jamais fini de charger — capture suspecte`);
   }
   if (clicLabel) {
-    // On le dit quand le clic rate, plutôt que de livrer en silence un écran qui n'est
-    // pas celui qu'on croit photographier.
-    const { result } = await evaluate(`
-      (() => {
-        const cible = [...document.querySelectorAll("button, a, [role=tab]")]
-          .find((element) => (element.textContent || "").includes(${JSON.stringify(clicLabel)}));
-        if (!cible) return false;
-        cible.click();
-        return true;
-      })()
-    `);
-    if (result?.result?.value !== true) {
-      console.warn(`  attention : onglet « ${clicLabel} » introuvable — capture sur l'onglet par défaut`);
+    // Le clic est répété, pas tenté une fois, et la raison a coûté deux captures
+    // publiées sans leur contenu.
+    //
+    // Le bouton existe dans le HTML rendu par le serveur bien avant que React ne
+    // s'hydrate. `.click()` réussit alors — l'élément est là — mais aucun gestionnaire
+    // n'écoute encore : l'événement part dans le vide, le script croit avoir cliqué, et
+    // photographie un écran qui n'a jamais bougé. C'est précisément l'image du
+    // diagnostic sans sa remarque qui a été livrée deux fois.
+    //
+    // On recommence donc jusqu'à voir le résultat attendu. Sans résultat attendu
+    // déclaré, un seul clic suffit : l'onglet des ressources, lui, répond tout de suite.
+    const cliquer = () =>
+      evaluate(`
+        (() => {
+          const cible = [...document.querySelectorAll("button, a, [role=tab]")]
+            .find((element) => (element.textContent || "").includes(${JSON.stringify(clicLabel)}));
+          if (!cible || cible.disabled) return false;
+          cible.click();
+          return true;
+        })()
+      `);
+
+    const premier = await cliquer();
+    if (premier.result?.result?.value !== true) {
+      console.warn(`  attention : « ${clicLabel} » introuvable — capture sur l'état par défaut`);
     }
+
     if (attendreApresClic) {
-      // Un délai fixe a déjà fait rater cette capture une fois : le diagnostic met
-      // environ trois secondes, l'attente était de 900 ms, et la capture montrait la
-      // carte sans sa remarque — exactement l'écran qu'on ne voulait pas publier.
-      // On attend donc le résultat lui-même.
-      const deadline = Date.now() + 15_000;
+      const deadline = Date.now() + 40_000;
       let vu = false;
+      let tentatives = 1;
       while (Date.now() < deadline) {
         const sonde = await evaluate(
           `${attendreApresClic}.test(document.body.innerText || "")`,
@@ -247,9 +274,13 @@ for (const [name, path, clicLabel, attendreApresClic] of SHOTS) {
           vu = true;
           break;
         }
-        await sleep(400);
+        await sleep(600);
+        await cliquer();
+        tentatives += 1;
       }
-      if (!vu) {
+      if (vu) {
+        if (tentatives > 1) console.log(`    (« ${clicLabel} » a pris ${tentatives} clics)`);
+      } else {
         console.warn(`  attention : « ${name} » n'a jamais affiché son résultat — capture suspecte`);
       }
     }
